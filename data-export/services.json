@@ -1,0 +1,201 @@
+[
+  {
+    "id": "00000000-0000-4000-8003-000000000001",
+    "name": "Electrical",
+    "slug": "electrical",
+    "description": "Wiring, lights & more",
+    "active": true,
+    "indicativeRanges": [
+      {
+        "min": 450,
+        "max": 900
+      },
+      {
+        "min": 400,
+        "max": 850
+      },
+      {
+        "min": 450,
+        "max": 1000
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8003-000000000002",
+    "name": "Plumbing",
+    "slug": "plumbing",
+    "description": "Leaks, taps & fittings",
+    "active": true,
+    "indicativeRanges": [
+      {
+        "min": 350,
+        "max": 750
+      },
+      {
+        "min": 300,
+        "max": 700
+      },
+      {
+        "min": 300,
+        "max": 650
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8003-000000000003",
+    "name": "Appliance repair",
+    "slug": "appliance",
+    "description": "AC, fridge & washing machine",
+    "active": true,
+    "indicativeRanges": [
+      {
+        "min": 500,
+        "max": 1100
+      },
+      {
+        "min": 450,
+        "max": 1050
+      },
+      {
+        "min": 500,
+        "max": 1150
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8003-000000000004",
+    "name": "Home cleaning",
+    "slug": "cleaning",
+    "description": "A fresh start, every time",
+    "active": true,
+    "indicativeRanges": [
+      {
+        "min": 600,
+        "max": 1200
+      },
+      {
+        "min": 550,
+        "max": 1100
+      },
+      {
+        "min": 500,
+        "max": 1000
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8003-000000000005",
+    "name": "Carpentry",
+    "slug": "carpentry",
+    "description": "Furniture & woodwork",
+    "active": true,
+    "indicativeRanges": [
+      {
+        "min": 550,
+        "max": 1250
+      },
+      {
+        "min": 500,
+        "max": 1400
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8003-000000000006",
+    "name": "Computer repair",
+    "slug": "computer",
+    "description": "Laptop, desktop & Wi-Fi",
+    "active": true,
+    "indicativeRanges": [
+      {
+        "min": 350,
+        "max": 900
+      },
+      {
+        "min": 400,
+        "max": 950
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8003-000000000007",
+    "name": "Painting",
+    "slug": "painting",
+    "description": "Walls, finishes & polish",
+    "active": true,
+    "indicativeRanges": [
+      {
+        "min": 700,
+        "max": 1500
+      },
+      {
+        "min": 650,
+        "max": 1600
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8003-000000000008",
+    "name": "Mechanic",
+    "slug": "mechanic",
+    "description": "Two-wheeler & car service",
+    "active": true,
+    "indicativeRanges": [
+      {
+        "min": 400,
+        "max": 950
+      },
+      {
+        "min": 350,
+        "max": 850
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8003-000000000009",
+    "name": "Tutoring",
+    "slug": "tutoring",
+    "description": "Personalized learning",
+    "active": true,
+    "indicativeRanges": [
+      {
+        "min": 400,
+        "max": 800
+      },
+      {
+        "min": 450,
+        "max": 900
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8003-000000000010",
+    "name": "Tailoring",
+    "slug": "tailoring",
+    "description": "Alterations & custom fit",
+    "active": true,
+    "indicativeRanges": [
+      {
+        "min": 250,
+        "max": 700
+      },
+      {
+        "min": 250,
+        "max": 650
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-4000-8003-000000000011",
+    "name": "Photography",
+    "slug": "photography",
+    "description": "Events & portraits",
+    "active": true,
+    "indicativeRanges": [
+      {
+        "min": 1500,
+        "max": 3500
+      }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+name: ajmer-skilllink
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: ajmer-skilllink-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ajmer_skilllink}
+      MYSQL_USER: ${MYSQL_USER:-skilllink}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-skilllink_dev}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-skilllink_root_dev}
+    ports:
+      - "3306:3306"
+    volumes:
+      - skilllink_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 4s
+      retries: 20
+volumes:
+  skilllink_mysql_data:

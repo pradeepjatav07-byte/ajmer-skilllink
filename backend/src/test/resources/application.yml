@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:skilllink;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+  flyway:
+    enabled: false
+app:
+  jwt:
+    secret-base64: c2tpbGxsaW5rLWRldi1zZWNyZXQtMzItYnl0ZXMtZm9yLWhzMjU2LWtleS1vbmU=
+    access-minutes: 20
+    refresh-days: 30
+  cors:
+    allowed-origins: http://localhost:5173

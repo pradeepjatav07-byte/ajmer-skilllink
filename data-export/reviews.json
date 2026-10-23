@@ -1,0 +1,90 @@
+[
+  {
+    "id": "00000000-0000-4000-8013-000000000001",
+    "bookingId": "00000000-0000-4000-8004-000000000009",
+    "providerId": "00000000-0000-4000-8002-000000000202",
+    "customerId": "00000000-0000-4000-8001-000000000101",
+    "rating": 5,
+    "reviewText": "Arrived on time and explained the options clearly.",
+    "reported": false,
+    "createdAt": "15 Oct 2026",
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8013-000000000002",
+    "bookingId": "00000000-0000-4000-8004-000000000010",
+    "providerId": "00000000-0000-4000-8002-000000000205",
+    "customerId": "00000000-0000-4000-8001-000000000102",
+    "rating": 5,
+    "reviewText": "Good work, fair estimate, and very courteous.",
+    "reported": false,
+    "createdAt": "14 Oct 2026",
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8013-000000000003",
+    "bookingId": "00000000-0000-4000-8004-000000000011",
+    "providerId": "00000000-0000-4000-8002-000000000208",
+    "customerId": "00000000-0000-4000-8001-000000000103",
+    "rating": 4,
+    "reviewText": "A reliable local professional. Would book again.",
+    "reported": false,
+    "createdAt": "13 Oct 2026",
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8013-000000000004",
+    "bookingId": "00000000-0000-4000-8004-000000000012",
+    "providerId": "00000000-0000-4000-8002-000000000211",
+    "customerId": "00000000-0000-4000-8001-000000000104",
+    "rating": 5,
+    "reviewText": "Arrived on time and explained the options clearly.",
+    "reported": false,
+    "createdAt": "12 Oct 2026",
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8013-000000000005",
+    "bookingId": "00000000-0000-4000-8004-000000000013",
+    "providerId": "00000000-0000-4000-8002-000000000214",
+    "customerId": "00000000-0000-4000-8001-000000000101",
+    "rating": 4,
+    "reviewText": "Good work, fair estimate, and very courteous.",
+    "reported": false,
+    "createdAt": "11 Oct 2026",
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8013-000000000006",
+    "bookingId": "00000000-0000-4000-8004-000000000014",
+    "providerId": "00000000-0000-4000-8002-000000000217",
+    "customerId": "00000000-0000-4000-8001-000000000102",
+    "rating": 5,
+    "reviewText": "A reliable local professional. Would book again.",
+    "reported": false,
+    "createdAt": "10 Oct 2026",
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8013-000000000007",
+    "bookingId": "00000000-0000-4000-8004-000000000015",
+    "providerId": "00000000-0000-4000-8002-000000000220",
+    "customerId": "00000000-0000-4000-8001-000000000103",
+    "rating": 5,
+    "reviewText": "Arrived on time and explained the options clearly.",
+    "reported": true,
+    "createdAt": "9 Oct 2026",
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8013-000000000008",
+    "bookingId": "00000000-0000-4000-8004-000000000016",
+    "providerId": "00000000-0000-4000-8002-000000000223",
+    "customerId": "00000000-0000-4000-8001-000000000104",
+    "rating": 4,
+    "reviewText": "Good work, fair estimate, and very courteous.",
+    "reported": false,
+    "createdAt": "8 Oct 2026",
+    "fictional": true
+  }
+]

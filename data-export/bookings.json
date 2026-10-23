@@ -1,0 +1,462 @@
+[
+  {
+    "id": "00000000-0000-4000-8004-000000000001",
+    "bookingCode": "ASL-2408",
+    "customerId": "00000000-0000-4000-8001-000000000101",
+    "providerId": "00000000-0000-4000-8002-000000000201",
+    "categoryId": "00000000-0000-4000-8003-000000000001",
+    "category": "Electrical",
+    "serviceTitle": "Ceiling fan installation",
+    "area": "Civil Lines",
+    "addressLabel": "Fictional demo address, Civil Lines, Ajmer",
+    "appointmentDate": "Today",
+    "preferredTime": "4:30 PM",
+    "status": "REQUESTED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 450,
+      "max": 900
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000002",
+    "bookingCode": "ASL-2407",
+    "customerId": "00000000-0000-4000-8001-000000000102",
+    "providerId": "00000000-0000-4000-8002-000000000202",
+    "categoryId": "00000000-0000-4000-8003-000000000002",
+    "category": "Plumbing",
+    "serviceTitle": "Kitchen tap leakage",
+    "area": "Vaishali Nagar",
+    "addressLabel": "Fictional demo address, Vaishali Nagar, Ajmer",
+    "appointmentDate": "Today",
+    "preferredTime": "5:00 PM",
+    "status": "ACCEPTED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 350,
+      "max": 750
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000003",
+    "bookingCode": "ASL-2406",
+    "customerId": "00000000-0000-4000-8001-000000000101",
+    "providerId": "00000000-0000-4000-8002-000000000204",
+    "categoryId": "00000000-0000-4000-8003-000000000003",
+    "category": "Appliance repair",
+    "serviceTitle": "AC not cooling",
+    "area": "Ana Sagar",
+    "addressLabel": "Fictional demo address, Ana Sagar, Ajmer",
+    "appointmentDate": "Today",
+    "preferredTime": "3:45 PM",
+    "status": "PROVIDER_ON_THE_WAY",
+    "emergency": true,
+    "estimatedRange": {
+      "min": 500,
+      "max": 1100
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000004",
+    "bookingCode": "ASL-2405",
+    "customerId": "00000000-0000-4000-8001-000000000103",
+    "providerId": "00000000-0000-4000-8002-000000000203",
+    "categoryId": "00000000-0000-4000-8003-000000000004",
+    "category": "Home cleaning",
+    "serviceTitle": "Deep home cleaning",
+    "area": "Panchsheel Nagar",
+    "addressLabel": "Fictional demo address, Panchsheel Nagar, Ajmer",
+    "appointmentDate": "Tomorrow",
+    "preferredTime": "10:00 AM",
+    "status": "WORK_STARTED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 600,
+      "max": 1200
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000005",
+    "bookingCode": "ASL-2404",
+    "customerId": "00000000-0000-4000-8001-000000000104",
+    "providerId": "00000000-0000-4000-8002-000000000206",
+    "categoryId": "00000000-0000-4000-8003-000000000005",
+    "category": "Carpentry",
+    "serviceTitle": "Wardrobe hinge repair",
+    "area": "Naya Bazaar",
+    "addressLabel": "Fictional demo address, Naya Bazaar, Ajmer",
+    "appointmentDate": "Tomorrow",
+    "preferredTime": "11:30 AM",
+    "status": "REQUESTED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 550,
+      "max": 1250
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000006",
+    "bookingCode": "ASL-2403",
+    "customerId": "00000000-0000-4000-8001-000000000101",
+    "providerId": "00000000-0000-4000-8002-000000000207",
+    "categoryId": "00000000-0000-4000-8003-000000000006",
+    "category": "Computer repair",
+    "serviceTitle": "Laptop diagnostics",
+    "area": "Beawar Road",
+    "addressLabel": "Fictional demo address, Beawar Road, Ajmer",
+    "appointmentDate": "18 Oct",
+    "preferredTime": "12:00 PM",
+    "status": "ACCEPTED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 350,
+      "max": 900
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000007",
+    "bookingCode": "ASL-2402",
+    "customerId": "00000000-0000-4000-8001-000000000106",
+    "providerId": "00000000-0000-4000-8002-000000000209",
+    "categoryId": "00000000-0000-4000-8003-000000000008",
+    "category": "Mechanic",
+    "serviceTitle": "Scooter servicing",
+    "area": "Madar Gate",
+    "addressLabel": "Fictional demo address, Madar Gate, Ajmer",
+    "appointmentDate": "Yesterday",
+    "preferredTime": "2:00 PM",
+    "status": "WORK_COMPLETED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 400,
+      "max": 950
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000008",
+    "bookingCode": "ASL-2401",
+    "customerId": "00000000-0000-4000-8001-000000000105",
+    "providerId": "00000000-0000-4000-8002-000000000211",
+    "categoryId": "00000000-0000-4000-8003-000000000001",
+    "category": "Electrical",
+    "serviceTitle": "Switchboard inspection",
+    "area": "Civil Lines",
+    "addressLabel": "Fictional demo address, Civil Lines, Ajmer",
+    "appointmentDate": "18 Oct",
+    "preferredTime": "9:30 AM",
+    "status": "REQUESTED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 400,
+      "max": 850
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000009",
+    "bookingCode": "ASL-2301",
+    "customerId": "00000000-0000-4000-8001-000000000101",
+    "providerId": "00000000-0000-4000-8002-000000000202",
+    "categoryId": "00000000-0000-4000-8003-000000000002",
+    "category": "Plumbing",
+    "serviceTitle": "Routine service & inspection",
+    "area": "Vaishali Nagar",
+    "addressLabel": "Fictional demo address, Vaishali Nagar, Ajmer",
+    "appointmentDate": "1 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 350,
+      "max": 750
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000010",
+    "bookingCode": "ASL-2302",
+    "customerId": "00000000-0000-4000-8001-000000000102",
+    "providerId": "00000000-0000-4000-8002-000000000205",
+    "categoryId": "00000000-0000-4000-8003-000000000009",
+    "category": "Tutoring",
+    "serviceTitle": "Fixture repair",
+    "area": "Civil Lines",
+    "addressLabel": "Fictional demo address, Civil Lines, Ajmer",
+    "appointmentDate": "2 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 400,
+      "max": 800
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000011",
+    "bookingCode": "ASL-2303",
+    "customerId": "00000000-0000-4000-8001-000000000103",
+    "providerId": "00000000-0000-4000-8002-000000000208",
+    "categoryId": "00000000-0000-4000-8003-000000000007",
+    "category": "Painting",
+    "serviceTitle": "Installation and maintenance",
+    "area": "Madar Gate",
+    "addressLabel": "Fictional demo address, Madar Gate, Ajmer",
+    "appointmentDate": "3 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 700,
+      "max": 1500
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000012",
+    "bookingCode": "ASL-2304",
+    "customerId": "00000000-0000-4000-8001-000000000104",
+    "providerId": "00000000-0000-4000-8002-000000000211",
+    "categoryId": "00000000-0000-4000-8003-000000000001",
+    "category": "Electrical",
+    "serviceTitle": "Routine service & inspection",
+    "area": "Panchsheel Nagar",
+    "addressLabel": "Fictional demo address, Panchsheel Nagar, Ajmer",
+    "appointmentDate": "4 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 400,
+      "max": 850
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000013",
+    "bookingCode": "ASL-2305",
+    "customerId": "00000000-0000-4000-8001-000000000101",
+    "providerId": "00000000-0000-4000-8002-000000000214",
+    "categoryId": "00000000-0000-4000-8003-000000000003",
+    "category": "Appliance repair",
+    "serviceTitle": "Fixture repair",
+    "area": "Naya Bazaar",
+    "addressLabel": "Fictional demo address, Naya Bazaar, Ajmer",
+    "appointmentDate": "5 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 450,
+      "max": 1050
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000014",
+    "bookingCode": "ASL-2306",
+    "customerId": "00000000-0000-4000-8001-000000000102",
+    "providerId": "00000000-0000-4000-8002-000000000217",
+    "categoryId": "00000000-0000-4000-8003-000000000006",
+    "category": "Computer repair",
+    "serviceTitle": "Installation and maintenance",
+    "area": "Vaishali Nagar",
+    "addressLabel": "Fictional demo address, Vaishali Nagar, Ajmer",
+    "appointmentDate": "6 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 400,
+      "max": 950
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000015",
+    "bookingCode": "ASL-2307",
+    "customerId": "00000000-0000-4000-8001-000000000103",
+    "providerId": "00000000-0000-4000-8002-000000000220",
+    "categoryId": "00000000-0000-4000-8003-000000000009",
+    "category": "Tutoring",
+    "serviceTitle": "Routine service & inspection",
+    "area": "Ana Sagar",
+    "addressLabel": "Fictional demo address, Ana Sagar, Ajmer",
+    "appointmentDate": "7 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 450,
+      "max": 900
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000016",
+    "bookingCode": "ASL-2308",
+    "customerId": "00000000-0000-4000-8001-000000000104",
+    "providerId": "00000000-0000-4000-8002-000000000223",
+    "categoryId": "00000000-0000-4000-8003-000000000010",
+    "category": "Tailoring",
+    "serviceTitle": "Fixture repair",
+    "area": "Panchsheel Nagar",
+    "addressLabel": "Fictional demo address, Panchsheel Nagar, Ajmer",
+    "appointmentDate": "8 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 250,
+      "max": 650
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000017",
+    "bookingCode": "ASL-2309",
+    "customerId": "00000000-0000-4000-8001-000000000101",
+    "providerId": "00000000-0000-4000-8002-000000000201",
+    "categoryId": "00000000-0000-4000-8003-000000000001",
+    "category": "Electrical",
+    "serviceTitle": "Installation and maintenance",
+    "area": "Civil Lines",
+    "addressLabel": "Fictional demo address, Civil Lines, Ajmer",
+    "appointmentDate": "9 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 450,
+      "max": 900
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000018",
+    "bookingCode": "ASL-2310",
+    "customerId": "00000000-0000-4000-8001-000000000102",
+    "providerId": "00000000-0000-4000-8002-000000000204",
+    "categoryId": "00000000-0000-4000-8003-000000000003",
+    "category": "Appliance repair",
+    "serviceTitle": "Routine service & inspection",
+    "area": "Ana Sagar",
+    "addressLabel": "Fictional demo address, Ana Sagar, Ajmer",
+    "appointmentDate": "10 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 500,
+      "max": 1100
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000019",
+    "bookingCode": "ASL-2311",
+    "customerId": "00000000-0000-4000-8001-000000000103",
+    "providerId": "00000000-0000-4000-8002-000000000207",
+    "categoryId": "00000000-0000-4000-8003-000000000006",
+    "category": "Computer repair",
+    "serviceTitle": "Fixture repair",
+    "area": "Beawar Road",
+    "addressLabel": "Fictional demo address, Beawar Road, Ajmer",
+    "appointmentDate": "11 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 350,
+      "max": 900
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000020",
+    "bookingCode": "ASL-2312",
+    "customerId": "00000000-0000-4000-8001-000000000104",
+    "providerId": "00000000-0000-4000-8002-000000000210",
+    "categoryId": "00000000-0000-4000-8003-000000000010",
+    "category": "Tailoring",
+    "serviceTitle": "Installation and maintenance",
+    "area": "Naya Bazaar",
+    "addressLabel": "Fictional demo address, Naya Bazaar, Ajmer",
+    "appointmentDate": "12 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 250,
+      "max": 700
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000021",
+    "bookingCode": "ASL-2313",
+    "customerId": "00000000-0000-4000-8001-000000000101",
+    "providerId": "00000000-0000-4000-8002-000000000213",
+    "categoryId": "00000000-0000-4000-8003-000000000002",
+    "category": "Plumbing",
+    "serviceTitle": "Routine service & inspection",
+    "area": "Madar Gate",
+    "addressLabel": "Fictional demo address, Madar Gate, Ajmer",
+    "appointmentDate": "13 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 300,
+      "max": 700
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000022",
+    "bookingCode": "ASL-2314",
+    "customerId": "00000000-0000-4000-8001-000000000102",
+    "providerId": "00000000-0000-4000-8002-000000000216",
+    "categoryId": "00000000-0000-4000-8003-000000000005",
+    "category": "Carpentry",
+    "serviceTitle": "Fixture repair",
+    "area": "Beawar Road",
+    "addressLabel": "Fictional demo address, Beawar Road, Ajmer",
+    "appointmentDate": "14 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 500,
+      "max": 1400
+    },
+    "fictional": true
+  },
+  {
+    "id": "00000000-0000-4000-8004-000000000023",
+    "bookingCode": "ASL-2315",
+    "customerId": "00000000-0000-4000-8001-000000000103",
+    "providerId": "00000000-0000-4000-8002-000000000219",
+    "categoryId": "00000000-0000-4000-8003-000000000008",
+    "category": "Mechanic",
+    "serviceTitle": "Installation and maintenance",
+    "area": "Madar Gate",
+    "addressLabel": "Fictional demo address, Madar Gate, Ajmer",
+    "appointmentDate": "1 Oct",
+    "preferredTime": "11:00 AM",
+    "status": "CUSTOMER_CONFIRMED",
+    "emergency": false,
+    "estimatedRange": {
+      "min": 350,
+      "max": 850
+    },
+    "fictional": true
+  }
+]

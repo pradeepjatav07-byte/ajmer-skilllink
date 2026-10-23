@@ -1,0 +1,306 @@
+[
+  {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "name": "Nexoraa Admin",
+    "email": "admin@ajmerskilllink.demo",
+    "role": "ADMIN",
+    "area": "Ajmer, Rajasthan",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8001-000000000101",
+    "name": "Rohan Mehta",
+    "email": "customer@ajmerskilllink.demo",
+    "role": "CUSTOMER",
+    "area": "Civil Lines",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8001-000000000102",
+    "name": "Priya Sharma",
+    "email": "priya.sharma@ajmerskilllink.demo",
+    "role": "CUSTOMER",
+    "area": "Vaishali Nagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8001-000000000103",
+    "name": "Neha Joshi",
+    "email": "neha.joshi@ajmerskilllink.demo",
+    "role": "CUSTOMER",
+    "area": "Panchsheel Nagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8001-000000000104",
+    "name": "Amit Verma",
+    "email": "amit.verma@ajmerskilllink.demo",
+    "role": "CUSTOMER",
+    "area": "Ana Sagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8001-000000000105",
+    "name": "Aarav Saini",
+    "email": "aarav.saini@ajmerskilllink.demo",
+    "role": "CUSTOMER",
+    "area": "Naya Bazaar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8001-000000000106",
+    "name": "Isha Jain",
+    "email": "isha.jain@ajmerskilllink.demo",
+    "role": "CUSTOMER",
+    "area": "Beawar Road",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8001-000000000107",
+    "name": "Kabir Rathore",
+    "email": "kabir.rathore@ajmerskilllink.demo",
+    "role": "CUSTOMER",
+    "area": "Madar Gate",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8001-000000000108",
+    "name": "Tara Kumari",
+    "email": "tara.kumari@ajmerskilllink.demo",
+    "role": "CUSTOMER",
+    "area": "Civil Lines",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8001-000000000109",
+    "name": "Dev Bhandari",
+    "email": "dev.bhandari@ajmerskilllink.demo",
+    "role": "CUSTOMER",
+    "area": "Ana Sagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8001-000000000110",
+    "name": "Zoya Khan",
+    "email": "zoya.khan@ajmerskilllink.demo",
+    "role": "CUSTOMER",
+    "area": "Panchsheel Nagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8001-000000000111",
+    "name": "Nikhil Pareek",
+    "email": "nikhil.pareek@ajmerskilllink.demo",
+    "role": "CUSTOMER",
+    "area": "Vaishali Nagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8001-000000000112",
+    "name": "Kiran Yadav",
+    "email": "kiran.yadav@ajmerskilllink.demo",
+    "role": "CUSTOMER",
+    "area": "Naya Bazaar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000201",
+    "name": "Aarav Sharma",
+    "email": "provider@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Civil Lines",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000202",
+    "name": "Imran Khan",
+    "email": "provider.p02@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Vaishali Nagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000203",
+    "name": "Meera Joshi",
+    "email": "provider.p03@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Panchsheel Nagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000204",
+    "name": "Vikram Singh",
+    "email": "provider.p04@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Ana Sagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000205",
+    "name": "Nisha Rathore",
+    "email": "provider.p05@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Civil Lines",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000206",
+    "name": "Rafiq Ahmed",
+    "email": "provider.p06@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Naya Bazaar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000207",
+    "name": "Kunal Mehta",
+    "email": "provider.p07@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Beawar Road",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000208",
+    "name": "Pooja Saini",
+    "email": "provider.p08@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Madar Gate",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000209",
+    "name": "Deepak Choudhary",
+    "email": "provider.p09@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Vaishali Nagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000210",
+    "name": "Sana Qureshi",
+    "email": "provider.p10@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Naya Bazaar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000211",
+    "name": "Mahesh Kumawat",
+    "email": "provider.p11@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Panchsheel Nagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000212",
+    "name": "Ritu Bhandari",
+    "email": "provider.p12@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Ana Sagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000213",
+    "name": "Arjun Pareek",
+    "email": "provider.p13@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Madar Gate",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000214",
+    "name": "Farhan Ali",
+    "email": "provider.p14@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Naya Bazaar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000215",
+    "name": "Kavita Yadav",
+    "email": "provider.p15@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Civil Lines",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000216",
+    "name": "Ramesh Jangid",
+    "email": "provider.p16@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Beawar Road",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000217",
+    "name": "Neha Sharma",
+    "email": "provider.p17@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Vaishali Nagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000218",
+    "name": "Suresh Prajapat",
+    "email": "provider.p18@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Panchsheel Nagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000219",
+    "name": "Anil Bairwa",
+    "email": "provider.p19@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Madar Gate",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000220",
+    "name": "Shweta Jain",
+    "email": "provider.p20@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Ana Sagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000221",
+    "name": "Mohammad Salim",
+    "email": "provider.p21@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Naya Bazaar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000222",
+    "name": "Kartik Solanki",
+    "email": "provider.p22@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Beawar Road",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000223",
+    "name": "Lata Kanwar",
+    "email": "provider.p23@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Panchsheel Nagar",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000224",
+    "name": "Yash Vyas",
+    "email": "provider.p24@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Civil Lines",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "00000000-0000-4000-8002-000000000225",
+    "name": "Gopal Lal",
+    "email": "provider.p25@ajmerskilllink.demo",
+    "role": "PROVIDER",
+    "area": "Vaishali Nagar",
+    "status": "ACTIVE"
+  }
+]
