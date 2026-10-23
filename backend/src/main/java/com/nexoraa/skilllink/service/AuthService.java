@@ -41,13 +41,20 @@ public class AuthService {
                 .email(request.email().trim().toLowerCase()).passwordHash(passwordEncoder.encode(request.password()))
                 .role(role).status("ACTIVE").build());
         if (role == Role.PROVIDER) {
-            ServiceCategory defaultCategory = categories.findBySlugAndActiveTrue("electrical").orElse(null);
-            providers.save(ProviderProfile.builder().id(user.getId()).user(user).primaryCategory(defaultCategory)
-                    .providerCode("ASL-" + user.getId().substring(0, 8).toUpperCase())
-                    .primaryArea(request.area() == null || request.area().isBlank() ? "Civil Lines" : request.area().trim())
-                    .experienceYears(0).skillsJson("[]").aboutText("New SkillLink professional profile.")
-                    .verificationStatus("NOT_SUBMITTED").trustScore(0).ratingAverage(0).completedJobs(0)
-                    .emergencyAvailable(false).active(true).build());
+    providers.save(ProviderProfile.builder().user(user)
+            .providerCode("ASL-" + user.getId().substring(0, 8).toUpperCase())
+            .primaryArea("")
+            .experienceYears(0)
+            .skillsJson("[]")
+            .aboutText(null)
+            .verificationStatus("NOT_SUBMITTED")
+            .trustScore(0)
+            .ratingAverage(0)
+            .completedJobs(0)
+            .emergencyAvailable(false)
+            .availableToday(false)
+            .active(false)
+            .build());
         }
         return issuePair(user);
     }

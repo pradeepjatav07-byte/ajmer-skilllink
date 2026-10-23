@@ -18,6 +18,13 @@ public final class ApiDtos {
                                   @NotNull PublicRole role,
                                   @Size(max=80) String area) {}
     public enum PublicRole { CUSTOMER, PROVIDER }
+    public record ProviderProfileUpdateRequest(
+        @NotBlank @Size(max=80) String categorySlug,
+        @NotBlank @Size(max=80) String area,
+        @NotNull @Min(0) Integer experienceYears,
+        @NotEmpty @Size(max=20) List<@NotBlank @Size(max=80) String> skills,
+        @Size(max=1200) String aboutText
+    ) {}
     public record LoginRequest(@NotBlank @Email String email, @NotBlank String password) {}
     public record RefreshRequest(@NotBlank String refreshToken) {}
     public record LogoutRequest(@NotBlank String refreshToken) {}
@@ -32,13 +39,13 @@ public final class ApiDtos {
                                int experienceYears, String verificationStatus, double ratingAverage,
                                int completedJobs, int trustScore, double onTimeRate, double cancellationRate,
                                boolean emergencyAvailable, boolean femaleProfessional, boolean availableToday,
-                               String aboutText, String skillsJson) {
+                               String aboutText, String skillsJson, boolean active) {
         public static ProviderView from(ProviderProfile p) {
             return new ProviderView(p.getId(), p.getProviderCode(), p.getUser().getFullName(),
                     p.getPrimaryCategory() == null ? null : p.getPrimaryCategory().getName(), p.getPrimaryArea(),
                     p.getExperienceYears(), p.getVerificationStatus(), p.getRatingAverage(), p.getCompletedJobs(),
                     p.getTrustScore(), p.getOnTimeRate(), p.getCancellationRate(), p.isEmergencyAvailable(),
-                    p.isFemaleProfessional(), p.isAvailableToday(), p.getAboutText(), p.getSkillsJson());
+                    p.isFemaleProfessional(), p.isAvailableToday(), p.getAboutText(), p.getSkillsJson(), p.isActive());
         }
     }
     public record BookingCreateRequest(@NotBlank @Size(max=140) String serviceTitle,

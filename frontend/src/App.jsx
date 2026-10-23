@@ -236,11 +236,11 @@ function TrustStrip() {
   return <div className="trust-strip"><div className="trust-strip-icon"><Icon name="shieldCheck" size={19}/></div><div><strong>A safer way to book local work</strong><span>See verification, price ranges, and work history before you decide.</span></div><span className="trust-strip-link">How trust works <Icon name="arrow" size={14}/></span></div>;
 }
 
-function CustomerDashboard({ providers, bookings, savedIds, onNavigate, query, setQuery, onSelect, onBook, onCompare, onSave, compareIds, onCategory, onEmergency }) {
+function CustomerDashboard({ providers, bookings, savedIds, onNavigate, query, setQuery, onSelect, onBook, onCompare, onSave, compareIds, onCategory, onEmergency, customerName }) {
   const upcoming = bookings.find(b=>!['Customer confirmed','Cancelled','Disputed'].includes(b.status));
   const featured = providers.filter(p=>p.verification==='Verified').slice(0,3);
   return <div className="page-stack dashboard-page">
-    <div className="welcome-row"><div><div className="eyebrow">THURSDAY, 15 OCTOBER 2026 <span className="eyebrow-dot"/> AJMER, RAJASTHAN</div><h2>Good afternoon, Rohan <span className="wave">✦</span></h2><p>Your next trusted local professional is just a few taps away.</p></div><button className="subtle-location"><Icon name="pin" size={15}/><span>Civil Lines, Ajmer</span><Icon name="chevronDown" size={13}/></button></div>
+    <div className="welcome-row"><div><div className="eyebrow">THURSDAY, 15 OCTOBER 2026 <span className="eyebrow-dot"/> AJMER, RAJASTHAN</div><h2>Good afternoon, {customerName?.trim().split(/\s+/)[0] || 'there'}<span className="wave">✦</span></h2><p>Your next trusted local professional is just a few taps away.</p></div><button className="subtle-location"><Icon name="pin" size={15}/><span>Civil Lines, Ajmer</span><Icon name="chevronDown" size={13}/></button></div>
     <SearchHero query={query} setQuery={setQuery} onSearch={()=>onNavigate('explore')} onEmergency={onEmergency}/>
     <div className="dashboard-stats"><div className="mini-stat"><span className="mini-stat-icon blue"><Icon name="calendar" size={17}/></span><div><strong>{bookings.filter(b=>b.customer==='Rohan Mehta'&&!['Customer confirmed','Cancelled'].includes(b.status)).length.toString().padStart(2,'0')}</strong><span>Active bookings</span></div><span className="mini-stat-trend">this month</span></div><div className="mini-stat"><span className="mini-stat-icon rose"><Icon name="heart" size={17}/></span><div><strong>{savedIds.length.toString().padStart(2,'0')}</strong><span>Saved professionals</span></div><button className="mini-stat-link" onClick={()=>onNavigate('saved')}>View <Icon name="arrow" size={13}/></button></div><div className="mini-stat"><span className="mini-stat-icon mint"><Icon name="shieldCheck" size={17}/></span><div><strong>25<span className="small-plus">+</span></strong><span>Local skills covered</span></div><span className="mini-stat-tag">AJMER-WIDE</span></div></div>
     <div className="section-block"><SectionHeading eyebrow="START WITH A SERVICE" title="What do you need a hand with?" action="Browse all services" onAction={()=>onNavigate('explore')}/><CategoryGrid compact onSelect={onCategory}/></div>
@@ -499,10 +499,53 @@ function apiRole(value){return String(value||'CUSTOMER').toLowerCase();}
 const API_STATUS_LABELS={REQUESTED:'Requested',ACCEPTED:'Accepted',PROVIDER_ON_THE_WAY:'Provider on the way',WORK_STARTED:'Work started',WORK_COMPLETED:'Work completed',CUSTOMER_CONFIRMED:'Customer confirmed',CANCELLED:'Cancelled',DISPUTED:'Disputed'};
 const API_STATUS_VALUES={'Requested':'REQUESTED','Accepted':'ACCEPTED','Provider on the way':'PROVIDER_ON_THE_WAY','Work started':'WORK_STARTED','Work completed':'WORK_COMPLETED','Customer confirmed':'CUSTOMER_CONFIRMED','Cancelled':'CANCELLED','Disputed':'DISPUTED'};
 function mapApiProvider(p,index=0){
-  let skills=[];try{skills=Array.isArray(p.skillsJson)?p.skillsJson:JSON.parse(p.skillsJson||'[]')}catch{skills=[p.category].filter(Boolean)}
-  const local=seedProviders.find(x=>x.name===p.fullName)||seedProviders.find(x=>x.category===p.category)||{};
-  const status={VERIFIED:'Verified',UNDER_REVIEW:'Under review',NOT_SUBMITTED:'Not submitted',REJECTED:'Rejected'}[p.verificationStatus]||p.verificationStatus;
-  return {id:p.id,name:p.fullName,category:p.category||local.category||'Local services',area:p.area||'Ajmer',initials:(p.fullName||'AS').split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase(),rating:Number(p.ratingAverage||0),jobs:Number(p.completedJobs||0),experience:Number(p.experienceYears||0),min:local.min||350,max:local.max||900,trust:Number(p.trustScore||0),verification:status,response:18,emergency:Boolean(p.emergencyAvailable),female:Boolean(p.femaleProfessional),availability:p.availableToday?'Available today':'Available this week',online:Boolean(p.availableToday),onTime:Number(p.onTimeRate||0),cancellation:Number(p.cancellationRate||0),skills,about:p.aboutText||'',color:local.color||['blue','violet','teal','orange','rose','indigo'][index%6],languages:['Hindi','English'],portfolio:[],reviewText:'A local SkillLink customer shared feedback after the completed service.'};
+  let skills=[];
+  try{
+    skills=Array.isArray(p.skillsJson)
+      ? p.skillsJson
+      : JSON.parse(p.skillsJson||'[]');
+  }catch{
+    skills=[];
+  }
+
+  const local=seedProviders.find(x=>x.name===p.fullName)
+    ||seedProviders.find(x=>x.category===p.category)
+    ||{};
+  const status={
+    VERIFIED:'Verified',
+    UNDER_REVIEW:'Under review',
+    NOT_SUBMITTED:'Not submitted',
+    REJECTED:'Rejected'
+  }[p.verificationStatus]||p.verificationStatus;
+
+  return {
+    id:p.id,
+    name:p.fullName,
+    category:p.category||'',
+    area:p.area||'',
+    active:Boolean(p.active),
+    initials:(p.fullName||'AS').split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase(),
+    rating:Number(p.ratingAverage||0),
+    jobs:Number(p.completedJobs||0),
+    experience:Number(p.experienceYears||0),
+    min:local.min||350,
+    max:local.max||900,
+    trust:Number(p.trustScore||0),
+    verification:status,
+    response:18,
+    emergency:Boolean(p.emergencyAvailable),
+    female:Boolean(p.femaleProfessional),
+    availability:p.availableToday?'Available today':'Not available',
+    online:Boolean(p.availableToday),
+    onTime:Number(p.onTimeRate||0),
+    cancellation:Number(p.cancellationRate||0),
+    skills,
+    about:p.aboutText||'',
+    color:local.color||['blue','violet','teal','orange','rose','indigo'][index%6],
+    languages:[],
+    portfolio:[],
+    reviewText:''
+  };
 }
 function mapApiUser(u){const name=u.fullName||'SkillLink user';return{id:u.id,name,email:u.email,initials:name.split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase(),role:apiRole(u.role),area:'Ajmer, Rajasthan',status:u.status};}
 function mapApiBooking(b,providers=[]){
@@ -533,12 +576,52 @@ function App() {
   const providerSelf=store.providers.find(p=>p.id===(API_MODE&&apiUser?.id?apiUser.id:'p01'))||store.providers[0];
   const unread=store.notifications.filter(n=>n.unread).length;
   const loadApiWorkspace=async(forRole=role)=>{
-    const [providerRows,bookingRows,notificationRows,complaintRows]=await Promise.all([apiRequest('/providers'),apiRequest('/bookings'),apiRequest('/notifications'),forRole==='admin'?apiRequest('/admin/complaints'):Promise.resolve(null)]);
+    const [providerRows,bookingRows,notificationRows,complaintRows,myProfile]=await Promise.all([
+      apiRequest('/providers'),
+      apiRequest('/bookings'),
+      apiRequest('/notifications'),
+      forRole==='admin'?apiRequest('/admin/complaints'):Promise.resolve(null),
+      forRole==='provider'?apiRequest('/providers/me/profile'):Promise.resolve(null)
+    ]);
+
     const mappedProviders=providerRows.map((p,i)=>mapApiProvider(p,i));
+    if(myProfile&&!mappedProviders.some(p=>p.id===myProfile.id)){
+      mappedProviders.unshift(mapApiProvider(myProfile,mappedProviders.length));
+    }
+
     const mappedBookings=bookingRows.map(b=>mapApiBooking(b,mappedProviders));
-    const mappedNotifications=notificationRows.map(n=>({id:n.id,title:n.title,body:n.body,time:new Date(n.createdAt).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'}),unread:!n.read,kind:n.kind||'booking'}));
-    const mappedComplaints=complaintRows?.map(c=>({id:c.id,title:c.category,details:c.description,customer:c.customerName,provider:c.providerName||'Support queue',bookingId:c.bookingCode||'General inquiry',status:{OPEN:'Open',UNDER_REVIEW:'Under review',RESOLVED:'Resolved'}[c.status]||c.status,date:new Date(c.createdAt).toLocaleDateString('en-IN'),priority:c.priority||'Normal'}));
-    setStore(prev=>({...prev,providers:mappedProviders,bookings:mappedBookings,notifications:mappedNotifications,...(mappedComplaints?{complaints:mappedComplaints}:{})}));
+    const mappedNotifications=notificationRows.map(n=>({
+      id:n.id,
+      title:n.title,
+      body:n.body,
+      time:new Date(n.createdAt).toLocaleString('en-IN',{
+        day:'numeric',
+        month:'short',
+        hour:'numeric',
+        minute:'2-digit'
+      }),
+      unread:!n.read,
+      kind:n.kind||'booking'
+    }));
+    const mappedComplaints=complaintRows?.map(c=>({
+      id:c.id,
+      title:c.category,
+      details:c.description,
+      customer:c.customerName,
+      provider:c.providerName||'Support queue',
+      bookingId:c.bookingCode||'General inquiry',
+      status:{OPEN:'Open',UNDER_REVIEW:'Under review',RESOLVED:'Resolved'}[c.status]||c.status,
+      date:new Date(c.createdAt).toLocaleDateString('en-IN'),
+      priority:c.priority||'Normal'
+    }));
+
+    setStore(prev=>({
+      ...prev,
+      providers:mappedProviders,
+      bookings:mappedBookings,
+      notifications:mappedNotifications,
+      ...(mappedComplaints?{complaints:mappedComplaints}:{})
+    }));
     return {providers:mappedProviders,bookings:mappedBookings};
   };
   const hydrateApiSession=async()=>{
@@ -609,7 +692,7 @@ function App() {
   const renderPage=()=>{
     if(page==='emergency'&&role==='customer')return <EmergencyPage providers={store.providers} onStart={()=>openBooking(null,'Electrical',true)}/>;
     if(role==='customer'){
-      if(page==='dashboard')return <CustomerDashboard providers={store.providers} bookings={store.bookings} savedIds={store.savedIds} onNavigate={go} query={query} setQuery={setQuery} onSelect={openProvider} onBook={p=>openBooking(p,p.category)} onCompare={toggleCompare} onSave={onSave} compareIds={compareIds} onCategory={c=>{setActiveCategory(c);go('explore')}} onEmergency={()=>go('emergency')}/>;
+      if(page==='dashboard')return <CustomerDashboard providers={store.providers} customerName={user.name} bookings={store.bookings} savedIds={store.savedIds} onNavigate={go} query={query} setQuery={setQuery} onSelect={openProvider} onBook={p=>openBooking(p,p.category)} onCompare={toggleCompare} onSave={onSave} compareIds={compareIds} onCategory={c=>{setActiveCategory(c);go('explore')}} onEmergency={()=>go('emergency')}/>;
       if(page==='explore')return <ExplorePage providers={activeProviders} onSelect={openProvider} onBook={p=>openBooking(p,p.category)} onCompare={toggleCompare} compareIds={compareIds} savedIds={store.savedIds} onSave={onSave} query={query} setQuery={setQuery} filters={filters} setFilters={setFilters} activeCategory={activeCategory} setActiveCategory={setActiveCategory} onEmergency={()=>openBooking(null,activeCategory==='All services'?'Electrical':activeCategory,true)}/>;
       if(page==='bookings')return <BookingsPage bookings={store.bookings.filter(b=>b.customer==='Rohan Mehta'||b.customer==='Priya Sharma')} providers={store.providers} role={role} onOpen={openBookingDetail} onStatus={(id,s)=>updateBooking(id,s)} onReview={b=>setModal({type:'review',booking:b})} onNavigate={go}/>;
       if(page==='saved')return <SavedPage providers={store.providers} savedIds={store.savedIds} onRemove={onSave} onSelect={openProvider} onBook={p=>openBooking(p,p.category)} onCompare={toggleCompare} compareIds={compareIds}/>;
