@@ -65,6 +65,7 @@ const ICONS = {
   download: <><path d="M12 3v12m-5-5 5 5 5-5M4 21h16"/></>,
   dots: <><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></>,
   eye: <><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></>,
+  eyeOff: <><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/></>,
   alert: <><path d="M10.3 4.3 2.5 18a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 4.3a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4m0 4h.01"/></>,
   external: <><path d="M14 3h7v7M10 14 21 3"/><path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"/></>,
   phone: <><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 11.2 19a19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"/></>,
@@ -119,13 +120,14 @@ function SplashScreen() {
 
 function AuthScreen({ onLogin }) {
   const [role, setRole] = useState('customer');
-  const [email, setEmail] = useState(DEMO_USERS.customer.email);
-  const [password, setPassword] = useState(DEMO_PASSWORD);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [fullName, setFullName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [registering, setRegistering] = useState(false);
-  const chooseRole = r => { setRole(r); setEmail(registering ? '' : DEMO_USERS[r].email); setPassword(registering ? '' : DEMO_PASSWORD); setError(''); };
+  const chooseRole = r => { setRole(r); setEmail(''); setPassword(''); setShowPassword(false); setError(''); };
   const submit = async e => {
     e.preventDefault();
     if (!email.trim() || !password.trim()) { setError('Enter your email and password to continue.'); return; }
@@ -137,24 +139,51 @@ function AuthScreen({ onLogin }) {
   };
   return <div className="auth-page">
     <div className="auth-left">
-      <div className="auth-brand"><BrandImage/></div>
+      <div className="auth-brand" style={{ width: "fit-content" }}>
+  <div
+    className="auth-kicker"
+    style={{
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "column",
+      fontSize: "clamp(9px, 0.75vw, 11px)",
+      gap: "3px",
+      justifyContent: "center",
+      marginBottom: "14px",
+      textAlign: "center",
+    }}
+  >
+    <span>AJMER SKILLLINK</span>
+    <span
+  style={{
+    color: "#F4F7FF",
+    fontSize: "10px",
+    fontWeight: 600,
+    letterSpacing: "0.1em",
+    textTransform: "none",
+  }}
+>
+  by
+</span>
+  </div>
+  <BrandImage />
+</div>
       <div className="auth-copy"><span className="auth-kicker"><span className="live-dot"/> LOCAL SKILLS. REAL TRUST.</span><h1>Good work starts<br/>with <span>good people.</span></h1><p>Meet Ajmer’s skilled local professionals, compare transparent estimates, and book with confidence.</p><div className="auth-proof"><span><Icon name="shieldCheck" size={17}/> Verified skills</span><span><Icon name="pin" size={17}/> Ajmer-first</span><span><Icon name="heart" size={17}/> Built for trust</span></div></div>
       <div className="auth-left-footer"><span>POWERED BY NEXORAA</span><span>© 2026 Ajmer SkillLink</span></div>
       <div className="auth-orb auth-orb-one"/><div className="auth-orb auth-orb-two"/>
     </div>
-    <div className="auth-right"><div className="auth-top"><span>Ajmer, Rajasthan <Icon name="pin" size={14}/></span><span className="demo-label"><i/> DEMO ENVIRONMENT</span></div>
+    <div className="auth-right"><div className="auth-top"><span>Ajmer, Rajasthan <Icon name="pin" size={14}/></span></div>
       <div className="auth-card"><div className="auth-heading"><h2>{registering ? 'Create your account' : 'Welcome back'}</h2><p>{registering ? 'Join the trusted local service community.' : 'Sign in to continue to Ajmer SkillLink.'}</p></div>
         <div className="role-switch" role="tablist" aria-label="Choose account type">{['customer','provider'].map(r=><button key={r} role="tab" aria-selected={role===r} className={role===r?'selected':''} onClick={()=>chooseRole(r)}>{r==='customer'?'Customer':'Professional'}</button>)}</div>
         <form className="auth-form" onSubmit={submit}>
           {registering && <label>Full name<input required placeholder="Your name" autoComplete="name" value={fullName} onChange={e=>setFullName(e.target.value)}/></label>}
-          <label>Email address<div className="input-icon"><Icon name="user" size={16}/><input type="email" required value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email" aria-label="Email address"/></div></label>
-          <label>Password<div className="input-icon"><Icon name="lock" size={16}/><input type="password" required value={password} onChange={e=>setPassword(e.target.value)} autoComplete={registering?'new-password':'current-password'} aria-label="Password"/></div></label>
+          <label>Email address<div className="input-icon"><Icon name="user" size={16}/><input type="email" required value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email" aria-label="Email address" placeholder={registering?'you@example.com':DEMO_USERS[role].email}/></div></label>
+          <label>Password<div className="input-icon"><Icon name="lock" size={16}/><input type={showPassword?'text':'password'} required value={password} onChange={e=>setPassword(e.target.value)} autoComplete={registering?'new-password':'current-password'} aria-label="Password" placeholder={registering?'Create a password':DEMO_PASSWORD}/><button type="button" className="password-toggle" onClick={()=>setShowPassword(v=>!v)} aria-label={showPassword?'Hide password':'Show password'}><Icon name={showPassword?'eyeOff':'eye'} size={16}/></button></div></label>
           {!registering && <div className="auth-form-meta"><label className="checkbox-line"><input type="checkbox" defaultChecked/> Remember me</label><button type="button" className="text-button plain" onClick={()=>setError('Demo password reset is disabled. Use the documented demo credentials.')}>Forgot password?</button></div>}
           {error && <p className="form-error">{error}</p>}
           <Button type="submit" className="auth-submit" disabled={loading}>{loading ? <><span className="spinner"/> Signing you in…</> : <>{registering?'Create account':'Sign in'}<Icon name="arrow" size={17}/></>}</Button>
         </form>
-        <p className="auth-toggle">{registering?'Already have an account?':'New to Ajmer SkillLink?'} <button type="button" onClick={() => { const nextRegistering = !registering; setRegistering(nextRegistering); setError(''); setFullName(''); setEmail(nextRegistering ? '' : DEMO_USERS[role].email); setPassword(nextRegistering ? '' : DEMO_PASSWORD); }}>{registering?'Sign in':'Create account'}</button></p>
-        <div className="demo-credentials"><div><Icon name="shieldCheck" size={16}/><div><strong>Demo access</strong><span>Role-aware preview · no real payments or identity checks</span></div></div><button onClick={()=>onLogin(role,false,{email:DEMO_USERS[role].email,password:DEMO_PASSWORD})}>Enter as {role==='customer'?'customer':role==='provider'?'professional':'admin'}<Icon name="arrow" size={14}/></button></div>
+        <p className="auth-toggle">{registering?'Already have an account?':'New to Ajmer SkillLink?'} <button type="button" onClick={() => { const nextRegistering = !registering; setRegistering(nextRegistering); setError(''); setFullName(''); setEmail(''); setPassword(''); setShowPassword(false); }}>{registering?'Sign in':'Create account'}</button></p>
         <p className="auth-privacy"><Icon name="lock" size={12}/> Your details stay private. Demo information is fictional.</p>
       </div><footer className="auth-footer"><span>© Nexoraa 2026</span><span>Privacy</span><span>Terms</span><span>Help</span></footer>
     </div>
@@ -177,7 +206,7 @@ const NAV = {
 };
 const TITLES = { dashboard:'Overview', explore:'Find a service', bookings:'Bookings', saved:'Saved providers', notifications:'Notifications', profile:'Profile & safety', support:'Help & support', requests:'New requests', passport:'My Skill Passport', performance:'Earnings & insights', verification:'Provider verification', people:'People & providers', services:'Services & pricing', complaints:'Complaints & disputes', analytics:'Analytics', audit:'Audit log' };
 
-function Sidebar({ role, page, onNavigate, open, onClose, onLogout }) {
+function Sidebar({ role, page, onNavigate, open, onClose, onLogout, unread = 0 }) {
   const label = role==='provider'?'Professional Portal':role==='admin'?'Admin Portal':'Customer Portal';
   return <>
     {open && <div className="mobile-scrim" onClick={onClose}/>}
@@ -185,7 +214,9 @@ function Sidebar({ role, page, onNavigate, open, onClose, onLogout }) {
       <div className="sidebar-brand"><BrandImage/><div className="product-lockup"><span>AJMER</span><strong>SkillLink</strong></div><span className="portal-pill">{role==='admin'?'ADMIN':role==='provider'?'PRO':'CUSTOMER'}</span></div>
       <div className="location-chip"><span className="location-pulse"/><span>AJMER, RAJASTHAN</span><Icon name="pin" size={14}/></div>
       <nav className="side-nav" aria-label={`${label} navigation`}>
-        {NAV[role].map(group=><div className="nav-group" key={group.label}><div className="nav-group-title">{group.label}</div>{group.items.map(([id,name,icon])=><button key={id} className={`nav-item ${page===id?'nav-active':''}`} onClick={()=>onNavigate(id)}><Icon name={icon} size={18}/><span>{name}</span>{id==='notifications' && <em className="nav-unread">2</em>}</button>)}</div>)}
+        {NAV[role].map(group=><div className="nav-group" key={group.label}><div className="nav-group-title">{group.label}</div>{group.items.map(([id,name,icon])=><button key={id} className={`nav-item ${page===id?'nav-active':''}`} onClick={()=>onNavigate(id)}><Icon name={icon} size={18}/><span>{name}</span>{id === 'notifications' && unread > 0 && (
+  <em className="nav-unread">{unread}</em>
+)}</button>)}</div>)}
       </nav>
       {role==='customer' && <div className="sidebar-emergency"><div className="emergency-icon"><Icon name="flame" size={17}/></div><div><strong>Need urgent help?</strong><span>Find available pros now</span></div><button onClick={()=>onNavigate('emergency')} aria-label="Open emergency service"><Icon name="arrow" size={16}/></button></div>}
       <div className="sidebar-footer"><div className="nexoraa-mini"><BrandImage compact/></div><button className="logout-button" onClick={onLogout}><Icon name="logout" size={16}/>Sign out</button><span className="build-label">DEMO BUILD <b>v1.0</b></span></div>
@@ -235,12 +266,18 @@ function ProviderCard({ provider, onSelect, onBook, onCompare, comparing = false
 function TrustStrip() {
   return <div className="trust-strip"><div className="trust-strip-icon"><Icon name="shieldCheck" size={19}/></div><div><strong>A safer way to book local work</strong><span>See verification, price ranges, and work history before you decide.</span></div><span className="trust-strip-link">How trust works <Icon name="arrow" size={14}/></span></div>;
 }
+function getTimeBasedGreeting() {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'Good morning';
+  if (hour < 17) return 'Good afternoon';
+  return 'Good evening';
+}
 
 function CustomerDashboard({ providers, bookings, savedIds, onNavigate, query, setQuery, onSelect, onBook, onCompare, onSave, compareIds, onCategory, onEmergency, customerName }) {
   const upcoming = bookings.find(b=>!['Customer confirmed','Cancelled','Disputed'].includes(b.status));
   const featured = providers.filter(p=>p.verification==='Verified').slice(0,3);
   return <div className="page-stack dashboard-page">
-    <div className="welcome-row"><div><div className="eyebrow">THURSDAY, 15 OCTOBER 2026 <span className="eyebrow-dot"/> AJMER, RAJASTHAN</div><h2>Good afternoon, {customerName?.trim().split(/\s+/)[0] || 'there'}<span className="wave">✦</span></h2><p>Your next trusted local professional is just a few taps away.</p></div><button className="subtle-location"><Icon name="pin" size={15}/><span>Civil Lines, Ajmer</span><Icon name="chevronDown" size={13}/></button></div>
+    <div className="welcome-row"><div><div className="eyebrow">{new Date().toLocaleDateString('en-IN', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase()}<span className="eyebrow-dot"/> AJMER, RAJASTHAN</div><h2>{getTimeBasedGreeting()}, {customerName?.trim().split(/\s+/)[0] || 'there'}<span className="wave">✦</span></h2><p>Your next trusted local professional is just a few taps away.</p></div><button className="subtle-location"><Icon name="pin" size={15}/><span>Civil Lines, Ajmer</span><Icon name="chevronDown" size={13}/></button></div>
     <SearchHero query={query} setQuery={setQuery} onSearch={()=>onNavigate('explore')} onEmergency={onEmergency}/>
     <div className="dashboard-stats"><div className="mini-stat"><span className="mini-stat-icon blue"><Icon name="calendar" size={17}/></span><div><strong>{bookings.filter(b=>b.customer==='Rohan Mehta'&&!['Customer confirmed','Cancelled'].includes(b.status)).length.toString().padStart(2,'0')}</strong><span>Active bookings</span></div><span className="mini-stat-trend">this month</span></div><div className="mini-stat"><span className="mini-stat-icon rose"><Icon name="heart" size={17}/></span><div><strong>{savedIds.length.toString().padStart(2,'0')}</strong><span>Saved professionals</span></div><button className="mini-stat-link" onClick={()=>onNavigate('saved')}>View <Icon name="arrow" size={13}/></button></div><div className="mini-stat"><span className="mini-stat-icon mint"><Icon name="shieldCheck" size={17}/></span><div><strong>25<span className="small-plus">+</span></strong><span>Local skills covered</span></div><span className="mini-stat-tag">AJMER-WIDE</span></div></div>
     <div className="section-block"><SectionHeading eyebrow="START WITH A SERVICE" title="What do you need a hand with?" action="Browse all services" onAction={()=>onNavigate('explore')}/><CategoryGrid compact onSelect={onCategory}/></div>
@@ -298,25 +335,65 @@ function BookingModal({ provider, initialCategory, emergency, providers, onClose
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
-  const candidates = providers.filter(p=>p.category===category && (!emergency || (p.emergency && p.availability?.includes('today'))));
+ const candidates = providers.filter(
+  (p) =>
+    p.category === category &&
+    (!emergency || (p.emergency && p.availability.includes('today'))) &&
+    (!verifiedOnly || p.verification === 'Verified')
+);
   const selectedProvider = provider || candidates.find(p=>p.verification==='Verified') || candidates[0] || null;
   const fairProvider = selectedProvider || providers.find(p=>p.category===category) || null;
   const handleSubmit = async e => {
     e.preventDefault();
     if (!service.trim() || !description.trim() || !address.trim()) { setError('Add a service, address and a short description so your request is actionable.'); return; }
     if (emergency && !area) { setError('Choose the Ajmer area for the urgent request.'); return; }
-    setSubmitting(true); setError('');
-    try {
-      await onSubmit({ providerId:selectedProvider?.id||null, providerName:selectedProvider?.name||'Matching local providers', category, service, area, address, appointmentDate:date, date:emergency?'Today':new Date(`${date}T00:00:00`).toLocaleDateString('en-IN',{day:'numeric',month:'short'}), time:emergency?'ASAP':time, description, emergency, safety:{verifiedOnly,daytime,femalePreferred}, shareWith, trustedName });
+if (provider && verifiedOnly && provider.verification !== 'Verified') {
+  setError('This Professional is not skill-verified. Turn off the verified-only preference or choose a verified Professional.');
+  return;
+ }
+setSubmitting(true);
+setError('');
+try {     await onSubmit({ providerId:selectedProvider?.id||null, providerName:selectedProvider?.name||'Matching local providers', category, service, area, address, appointmentDate:date, date:emergency?'Today':new Date(`${date}T00:00:00`).toLocaleDateString('en-IN',{day:'numeric',month:'short'}), time:emergency?'ASAP':time, description, emergency, safety:{verifiedOnly,daytime,femalePreferred}, shareWith, trustedName });
       setSuccess(true);
     } catch (err) { setError(err.message||'The request could not be saved. Please try again.'); }
     finally { setSubmitting(false); }
   };
   if (success) return <Modal onClose={onClose} title="Request sent"><div className="success-state"><div className="success-illustration"><Icon name={emergency?'flame':'check'} size={30}/></div><div className="eyebrow">{emergency?'URGENT MATCH IN PROGRESS':'BOOKING REQUEST SENT'}</div><h2>{emergency?'We’re finding available help.':'Your request is on its way.'}</h2><p>{emergency?'Eligible emergency-ready pros in your Ajmer area have been notified. You can cancel any time.':'You’ll see acceptance and arrival updates in your booking timeline.'}</p><div className="success-summary"><span>Service</span><strong>{service} · {category}</strong><span>Area</span><strong>{area}, Ajmer</strong><span>Professional</span><strong>{selectedProvider?.name||'Matching local providers'}</strong></div><Button className="full-width" onClick={onClose}>View my bookings <Icon name="arrow" size={15}/></Button><p className="form-note">Demo flow: no live dispatch, GPS, call, or payment is connected.</p></div></Modal>;
   return <Modal onClose={onClose} wide title={emergency?'Emergency service request':'Create a booking'}><div className="booking-modal"><div className="modal-eyebrow"><span className={emergency?'urgent-dot':''}>{emergency?<Icon name="flame" size={14}/>:<Icon name="calendar" size={14}/>}</span>{emergency?'EMERGENCY MODE':'BOOK A LOCAL PROFESSIONAL'}</div><h2>{emergency?'Let’s find urgent local help.':'Tell us what needs doing.'}</h2><p className="modal-subtitle">{emergency?'We’ll notify currently available emergency-ready pros in your area.':'Share a few details and get a clear estimate before you confirm anything.'}</p>
-    <form onSubmit={handleSubmit} className="booking-form"><div className="booking-form-main"><div className="form-grid"><label>Service category<select value={category} onChange={e=>setCategory(e.target.value)}>{categories.map(c=><option key={c.id}>{c.name}</option>)}</select></label><label>What do you need?<input required placeholder="e.g. AC not cooling" value={service} onChange={e=>setService(e.target.value)}/></label><label>Ajmer area<select value={area} onChange={e=>setArea(e.target.value)}>{['Civil Lines','Vaishali Nagar','Panchsheel Nagar','Ana Sagar','Naya Bazaar','Madar Gate','Beawar Road'].map(x=><option key={x}>{x}</option>)}</select></label><label>Full address<input required placeholder="House / street details" value={address} onChange={e=>setAddress(e.target.value)}/></label>{!emergency&&<><label>Preferred date<input type="date" min="2026-10-15" value={date} onChange={e=>setDate(e.target.value)}/></label><label>Preferred time<select value={time} onChange={e=>setTime(e.target.value)}>{['9:00 AM','10:00 AM','11:30 AM','1:00 PM','3:00 PM','4:30 PM','6:00 PM'].map(x=><option key={x}>{x}</option>)}</select></label></>}</div><label className="description-field">Describe the problem<textarea required rows="3" placeholder="What happened? Include useful details such as model, room or symptoms." value={description} onChange={e=>setDescription(e.target.value)}/></label>
-      <div className="safety-options"><div className="safety-options-title"><Icon name="shieldCheck" size={16}/>Safety preferences <span>Optional</span></div><label><input type="checkbox" checked={verifiedOnly} onChange={e=>setVerifiedOnly(e.target.checked)}/> Only show skill-verified professionals</label><label><input type="checkbox" checked={daytime} onChange={e=>setDaytime(e.target.checked)}/> Daytime visit preferred</label><label><input type="checkbox" checked={femalePreferred} onChange={e=>setFemalePreferred(e.target.checked)}/> Female professional preferred where available</label><label><input type="checkbox" checked={shareWith} onChange={e=>setShareWith(e.target.checked)}/> Share booking summary with a trusted contact</label>{shareWith&&<input className="trusted-name-input" placeholder="Trusted contact name (optional)" value={trustedName} onChange={e=>setTrustedName(e.target.value)}/>}</div>
-      {emergency&&<div className="emergency-advice"><Icon name="alert" size={16}/><span><strong>Safety first.</strong> For gas leaks, fire, exposed live wires or medical emergencies, move to safety and contact the appropriate emergency service. SkillLink is not an emergency response authority.</span></div>}
+    <form onSubmit={handleSubmit} className="booking-form"><div className="booking-form-main"><div className="form-grid"><label>
+  Service category
+  {provider ? (
+    <input type="text" value={provider.category || category} readOnly />
+  ) : (
+    <select value={category} onChange={e => setCategory(e.target.value)}>
+      {categories.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
+    </select>
+  )}
+</label><label>What do you need?<input required placeholder="e.g. AC not cooling" value={service} onChange={e=>setService(e.target.value)}/></label><label>Ajmer area<select value={area} onChange={e=>setArea(e.target.value)}>{['Civil Lines','Vaishali Nagar','Panchsheel Nagar','Ana Sagar','Naya Bazaar','Madar Gate','Beawar Road'].map(x=><option key={x}>{x}</option>)}</select></label><label>Full address<input required placeholder="House / street details" value={address} onChange={e=>setAddress(e.target.value)}/></label>{!emergency&&<><label>Preferred date<input type="date" min="2026-10-15" value={date} onChange={e=>setDate(e.target.value)}/></label><label>Preferred time<select value={time} onChange={e=>setTime(e.target.value)}>{['9:00 AM','10:00 AM','11:30 AM','1:00 PM','3:00 PM','4:30 PM','6:00 PM'].map(x=><option key={x}>{x}</option>)}</select></label></>}</div><label className="description-field">Describe the problem<textarea required rows="3" placeholder="What happened? Include useful details such as model, room or symptoms." value={description} onChange={e=>setDescription(e.target.value)}/></label>
+      <div className="safety-options">
+  <div className="safety-options-title">
+    <Icon name="shieldCheck" size={16} />
+    <span>Safety preferences</span>
+    <span>Optional</span>
+  </div>
+  <label>
+    <input
+      type="checkbox"
+      checked={verifiedOnly}
+      onChange={(e) => setVerifiedOnly(e.target.checked)}
+    />
+    Only show skill-verified professionals
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      checked={daytime}
+      onChange={(e) => setDaytime(e.target.checked)}
+    />
+    Daytime visit preferred
+  </label>
+</div>
+{emergency&&<div className="emergency-advice"><Icon name="alert" size={16}/><span><strong>Safety first.</strong> For gas leaks, fire, exposed live wires or medical emergencies, move to safety and contact the appropriate emergency service. SkillLink is not an emergency response authority.</span></div>}
       {error&&<p className="form-error">{error}</p>}<Button type="submit" className="full-width" variant={emergency?'emergency':'primary'} disabled={submitting}>{submitting?<><span className="spinner"/>Saving request…</>:emergency?<><Icon name="flame" size={16}/>Send urgent request</>:<>Send booking request<Icon name="arrow" size={16}/></>}</Button><p className="form-note">A request is not a price guarantee. Confirm scope and final charges with the professional.</p></div>
       <aside className="booking-side">{selectedProvider&&<div className="selected-provider-card"><div className="eyebrow">{provider?'YOUR SELECTED PRO':'SUGGESTED MATCH'}</div><div className="selected-provider-main"><Avatar initials={selectedProvider.initials} tone={selectedProvider.color} small/><div><strong>{selectedProvider.name}</strong><span>{selectedProvider.category} · {selectedProvider.area}</span></div></div><div className="selected-provider-tags"><Badge kind={selectedProvider.verification==='Verified'?'verified':'review'} icon="shieldCheck">{selectedProvider.verification}</Badge><span>★ {selectedProvider.rating.toFixed(1)}</span></div></div>}{emergency&&<div className="emergency-response-card"><div><Icon name="clock" size={16}/><strong>Typical response</strong></div><span>15–30 min in demo mode</span><small>Eligible pros are notified together.</small></div>}<FairQuoteCard provider={fairProvider} emergency={emergency}/><div className="safe-booking-note"><Icon name="lock" size={14}/><span>Address and trusted-contact details are private demo data. Only share what’s needed for the visit.</span></div></aside></form>
   </div></Modal>;
@@ -392,7 +469,7 @@ function SavedPage({ providers, savedIds, onRemove, onSelect, onBook, onCompare,
 function ProviderDashboard({ provider, bookings, onNavigate, onStatus, onToggleAvailability }) {
   const requests=bookings.filter(b=>b.providerId===provider.id&&b.status==='Requested');
   const assigned=bookings.filter(b=>b.providerId===provider.id&&!['Customer confirmed','Cancelled'].includes(b.status));
-  return <div className="page-stack provider-dashboard"><div className="provider-welcome"><div className="provider-welcome-copy"><div className="eyebrow">PROFESSIONAL PORTAL · CIVIL LINES</div><h2>Good afternoon, {provider.name.split(' ')[0]} <span className="wave">✦</span></h2><p>Your next great customer connection starts here.</p></div><div className="availability-toggle"><span className={provider.online===false?'offline-dot':'online-dot'}/><div><strong>{provider.online===false?'Offline':'Available for work'}</strong><small>Control whether new requests find you</small></div><button className={`toggle ${provider.online===false?'toggle-off':''}`} aria-label="Toggle availability" aria-pressed={provider.online!==false} onClick={onToggleAvailability}><i/></button></div></div>
+  return <div className="page-stack provider-dashboard"><div className="provider-welcome"><div className="provider-welcome-copy"><div className="eyebrow">{new Date().toLocaleDateString('en-IN', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase()} <span className="eyebrow-dot" /> CIVIL LINES, AJMER</div><h2>{getTimeBasedGreeting()}, {provider.name.split(' ')[0]} <span className="wave">✦</span></h2><p>Your next great customer connection starts here.</p></div><div className="availability-toggle"><span className={provider.online===false?'offline-dot':'online-dot'}/><div><strong>{provider.online===false?'Offline':'Available for work'}</strong><small>Control whether new requests find you</small></div><button className={`toggle ${provider.online===false?'toggle-off':''}`} aria-label="Toggle availability" aria-pressed={provider.online!==false} onClick={onToggleAvailability}><i/></button></div></div>
     <div className="provider-profile-health"><div className="health-identity"><Avatar initials={provider.initials} tone={provider.color}/><div><strong>Your Skill Passport is looking good</strong><span>Keep it up to date to build confidence and get discovered.</span></div></div><div className="health-progress"><div><span>Profile completeness</span><strong>86%</strong></div><div className="health-track"><i style={{width:'86%'}}/></div></div><button onClick={()=>onNavigate('passport')}>Complete profile <Icon name="arrow" size={14}/></button></div>
     <div className="provider-stats-grid"><div className="provider-stat-card"><span className="provider-stat-icon blue"><Icon name="briefcase" size={18}/></span><strong>{provider.jobs}</strong><span>Completed jobs</span><small>All-time</small></div><div className="provider-stat-card"><span className="provider-stat-icon gold"><Icon name="star" size={18}/></span><strong>{provider.rating.toFixed(1)}<small>/5</small></strong><span>Average rating</span><small>from {provider.jobs} jobs</small></div><div className="provider-stat-card"><span className="provider-stat-icon green"><Icon name="checkCircle" size={18}/></span><strong>{provider.onTime}%</strong><span>On-time visits</span><small>Based on updates</small></div><div className="provider-stat-card"><span className="provider-stat-icon violet"><Icon name="shieldCheck" size={18}/></span><strong>{provider.trust}<small>/100</small></strong><span>Trust Score</span><small>Not a certification</small></div></div>
     <div className="provider-content-grid"><div className="panel-card"><div className="panel-heading"><div><div className="eyebrow">ACTION NEEDED</div><h3>New service requests <span className="count-bubble">{requests.length}</span></h3></div><button className="text-button" onClick={()=>onNavigate('requests')}>View all <Icon name="arrow" size={14}/></button></div>{requests.length?requests.slice(0,3).map(b=><div className="request-row" key={b.id}><div className="request-row-icon"><Icon name="wrench" size={16}/></div><div className="request-row-main"><strong>{b.service}</strong><span>{b.customer} · {b.area} · {b.date} {b.time}</span><small>Estimated range · ask before confirming the final price</small></div><div className="request-row-actions"><Button size="small" onClick={()=>onStatus(b.id,'Accepted')}>Accept</Button><button className="reject-link" onClick={()=>onStatus(b.id,'Cancelled')}>Decline</button></div></div>):<div className="panel-empty">You’re all caught up. New requests will appear here.</div>}<div className="request-safety"><Icon name="shieldCheck" size={14}/>Only accept work you can complete safely and professionally.</div></div>
@@ -408,9 +485,333 @@ function RequestsPage({ bookings, providers, providerId = 'p01', onStatus, onOpe
 function FairQuoteTiny({ provider }) { return <div className="tiny-quote"><Icon name="sparkles" size={14}/><span>Suggested estimate</span><strong><Money value={provider?.min||400}/>–<Money value={provider?.max||900}/></strong></div>; }
 
 function ProviderPassportPage({ provider, onSave, onToggleAvailability }) {
-  const [saved,setSaved]=useState(false);
-  return <div className="page-stack"><div className="page-intro-row"><div><div className="eyebrow">YOUR PROFESSIONAL IDENTITY</div><h2>A Skill Passport customers can trust.</h2><p>Keep your skills, service areas, availability and proof of work up to date.</p></div><Button variant={provider.online===false?'outline':'soft'} onClick={onToggleAvailability}><span className={provider.online===false?'offline-dot':'online-dot'}/>{provider.online===false?'Go online':'Available'}</Button></div><div className="passport-layout"><div className="passport-card"><div className="passport-card-top"><div className="passport-logo-stamp"><img src="/branding/nexoraa-symbol-transparent.png" alt="Nexoraa mark"/></div><span>SKILL PASSPORT <Icon name="shieldCheck" size={15}/></span></div><div className="passport-person"><Avatar initials={provider.initials} tone={provider.color}/><div><h3>{provider.name}</h3><p>{provider.category} professional · Ajmer</p><Badge kind={provider.verification==='Verified'?'verified':'review'} icon="shieldCheck">{provider.verification}</Badge></div></div><div className="passport-score"><div><span>TRUST SCORE</span><strong>{provider.trust}<small>/100</small></strong><small>Built from transparent service signals. Not a government certification.</small></div><div className="passport-score-ring"><b>{provider.trust}</b><span>TRUST</span></div></div><div className="passport-facts"><div><span>Experience</span><strong>{provider.experience} years</strong></div><div><span>Completed jobs</span><strong>{provider.jobs}</strong></div><div><span>Rating</span><strong>★ {provider.rating.toFixed(1)} ({provider.jobs})</strong></div><div><span>On-time visits</span><strong>{provider.onTime}%</strong></div><div><span>Service area</span><strong>{provider.area}, Ajmer</strong></div><div><span>Languages</span><strong>{provider.languages.join(', ')}</strong></div></div><div className="passport-skills"><span className="eyebrow">SKILLS</span><div className="skill-pills">{provider.skills.map(s=><span key={s}><Icon name="checkCircle" size={14}/>{s}</span>)}</div></div><div className="passport-consent"><Icon name="lock" size={14}/>Keep uploads respectful and consent-based. No real identity numbers are collected in this demo.</div></div>
-    <div className="passport-editor"><div className="panel-card"><div className="eyebrow">PROFILE COMPLETENESS</div><h3>Build a clearer profile.</h3><p>Customers are more confident when they can quickly understand your experience and service scope.</p><div className="health-track large"><i style={{width:'86%'}}/></div><strong className="completeness-value">86% complete</strong><div className="completeness-list"><span><Icon name="checkCircle" size={15}/>Profile details</span><span><Icon name="checkCircle" size={15}/>Service and skills</span><span><Icon name="checkCircle" size={15}/>Service area</span><span><Icon name="clock" size={15}/>Add portfolio examples</span><span><Icon name="clock" size={15}/>Add working hours</span></div><Button variant="soft" className="full-width" onClick={()=>{setSaved(true);onSave?.();setTimeout(()=>setSaved(false),2500)}}><Icon name={saved?'check':'edit'} size={15}/>{saved?'Profile saved':'Edit profile details'}</Button></div><div className="panel-card verification-card"><div className="verification-card-head"><Icon name="shieldCheck" size={19}/><div><strong>Verification status</strong><span>{provider.verification==='Verified'?'Skill and profile checks complete':'Submitted for admin review'}</span></div></div><div className="verification-progress"><i className="done"/><i className="done"/><i className={provider.verification==='Verified'?'done':''}/></div><div className="verification-steps"><span>Profile submitted</span><span>Skills reviewed</span><span>{provider.verification==='Verified'?'Verified':'In review'}</span></div><small>SkillLink verification is a platform review, not a government or legal certification.</small></div><div className="privacy-callout"><Icon name="lock" size={16}/><div><strong>Demo-safe verification</strong><span>No Aadhaar, PAN, bank, or real identity numbers are requested here.</span></div></div></div></div></div>;
+  const isDraft = !provider.active || !(provider.skills || []).length;
+  const currentCategory = categories.find(c => c.name === provider.category)?.id || '';
+
+  const [categorySlug, setCategorySlug] = useState(() => isDraft ? '' : currentCategory);
+  const [area, setArea] = useState(() => isDraft ? '' : (provider.area || ''));
+  const [experienceYears, setExperienceYears] = useState(() => isDraft ? '' : String(provider.experience ?? ''));
+ const [skillsText, setSkillsText] = useState((provider.skills || []).join(', '));
+ const [languagesText, setLanguagesText] = useState(
+    Array.isArray(provider.languages)
+        ? provider.languages.join(', ')
+        : String(provider.languages || '')
+);
+  const [aboutText, setAboutText] = useState(
+    provider.about === 'New SkillLink professional profile.' ? '' : (provider.about || '')
+  );
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const draft = !provider.active || !(provider.skills || []).length;
+    setCategorySlug(draft ? '' : (categories.find(c => c.name === provider.category)?.id || ''));
+    setArea(draft ? '' : (provider.area || ''));
+    setExperienceYears(draft ? '' : String(provider.experience ?? ''));
+    setSkillsText((provider.skills || []).join(', '));
+    setLanguagesText(
+    Array.isArray(provider.languages)
+        ? provider.languages.join(', ')
+        : String(provider.languages || '')
+);
+    setAboutText(
+      provider.about === 'New SkillLink professional profile.' ? '' : (provider.about || '')
+    );
+    setError('');
+  }, [
+    provider.id,
+    provider.active,
+    provider.category,
+    provider.area,
+    provider.experience,
+    provider.skills,
+    provider.about,
+    provider.languages
+  ]);
+
+  const skills = skillsText.split(',').map(skill => skill.trim()).filter(Boolean);
+  const experienceValid =
+    experienceYears !== '' &&
+    Number.isInteger(Number(experienceYears)) &&
+    Number(experienceYears) >= 0;
+
+  const completedFields = [
+    Boolean(categorySlug),
+    Boolean(area.trim()),
+    experienceValid,
+    skills.length > 0
+  ].filter(Boolean).length;
+
+  const completeness = Math.round((completedFields / 4) * 100);
+
+  const handleSave = async event => {
+    event.preventDefault();
+    setError('');
+
+    if (!categorySlug || !area.trim() || !experienceValid || skills.length === 0) {
+      setError('Profession, service area, experience, and at least one skill are required.');
+      return;
+    }
+    if (skills.length > 20 || skills.some(skill => skill.length > 80)) {
+      setError('Add up to 20 skills; each skill must be 80 characters or fewer.');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      await onSave?.({
+        categorySlug,
+        area: area.trim(),
+        experienceYears: Number(experienceYears),
+          skills,
+  aboutText: aboutText.trim() || null,
+  languages: languagesText.trim() || null
+      });
+    } catch (err) {
+      setError(err?.message || 'Profile could not be saved.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const labelStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 6,
+    color: '#5c6a80',
+    fontSize: 9,
+    fontWeight: 700
+  };
+  const controlStyle = {
+    width: '100%',
+    minHeight: 35,
+    padding: '8px 10px',
+    border: '1px solid #e3e9f1',
+    borderRadius: 8,
+    background: '#fbfcfe',
+    color: '#35445d',
+    fontSize: 9
+  };
+
+  const verificationText = provider.verification === 'Verified'
+    ? 'Platform skill and profile checks complete'
+    : provider.verification === 'Not submitted'
+      ? 'Not submitted for platform review yet'
+      : 'Submitted for platform review';
+
+  return (
+    <div className="page-stack">
+      <div className="page-intro-row">
+        <div>
+          <div className="eyebrow">YOUR PROFESSIONAL IDENTITY</div>
+          <h2>A Skill Passport customers can trust.</h2>
+          <p>Enter your own service, experience, area, and skills.</p>
+        </div>
+        {isDraft
+          ? <Badge kind="neutral">Draft · not public</Badge>
+          : <Button
+              variant={provider.online === false ? 'outline' : 'soft'}
+              onClick={onToggleAvailability}
+            >
+              <span className={provider.online === false ? 'offline-dot' : 'online-dot'} />
+              {provider.online === false ? 'Go online' : 'Available'}
+            </Button>
+        }
+      </div>
+
+      {isDraft && (
+        <div className="privacy-callout">
+          <Icon name="lock" size={16} />
+          <div>
+            <strong>Draft profile—not visible to customers</strong>
+            <span>Complete the required details below to publish your Skill Passport.</span>
+          </div>
+        </div>
+      )}
+
+      <div className="passport-layout">
+        {isDraft ? (
+          <div className="panel-card">
+            <div className="eyebrow">SKILL PASSPORT PREVIEW</div>
+            <h3>Your public card will appear after you complete the required details.</h3>
+            <p>Ratings, completed jobs, and Trust Score come from platform activity—not from this form.</p>
+          </div>
+        ) : (
+          <div className="passport-card">
+            <div className="passport-card-top">
+              <div className="passport-logo-stamp">
+                <img src="/branding/nexoraa-symbol-transparent.png" alt="Nexoraa mark" />
+              </div>
+              <span>SKILL PASSPORT <Icon name="shieldCheck" size={15} /></span>
+            </div>
+
+            <div className="passport-person">
+              <Avatar initials={provider.initials} tone={provider.color} />
+              <div>
+                <h3>{provider.name}</h3>
+                <p>{provider.category} professional · {provider.area}, Ajmer</p>
+                <Badge kind={provider.verification === 'Verified' ? 'verified' : 'review'} icon="shieldCheck">
+                  {provider.verification}
+                </Badge>
+              </div>
+            </div>
+
+            <div className="passport-score">
+              <div>
+                <span>TRUST SCORE</span>
+                <strong>{provider.trust}<small>/100</small></strong>
+                <small>Built from transparent service signals. Not a government certification.</small>
+              </div>
+              <div className="passport-score-ring">
+                <b>{provider.trust}</b>
+                <span>TRUST</span>
+              </div>
+            </div>
+
+            <div className="passport-facts">
+              <div><span>Experience</span><strong>{provider.experience} years</strong></div>
+              <div><span>Completed jobs</span><strong>{provider.jobs}</strong></div>
+              <div><span>Rating</span><strong>★ {provider.rating.toFixed(1)} ({provider.jobs})</strong></div>
+              <div><span>On-time visits</span><strong>{provider.onTimeSampleCount > 0 ? `${provider.onTime}%` : 'No visit data yet'}</strong></div>
+              <div><span>Service area</span><strong>{provider.area}, Ajmer</strong></div>
+              <div><span>Languages</span><strong>{provider.languages?.length ? provider.languages.join(', ') : 'Not added'}</strong></div>
+            </div>
+
+            <div className="passport-skills">
+              <span className="eyebrow">SKILLS</span>
+              <div className="skill-pills">
+                {provider.skills.map(skill => (
+                  <span key={skill}><Icon name="checkCircle" size={14} />{skill}</span>
+                ))}
+              </div>
+            </div>
+
+            <div className="passport-consent">
+              <Icon name="lock" size={14} />
+              Keep uploads respectful and consent-based. No real identity numbers are collected in this demo.
+            </div>
+          </div>
+        )}
+
+        <div className="passport-editor">
+          <div className="panel-card">
+            <div className="eyebrow">PROFILE COMPLETENESS</div>
+            <h3>{isDraft ? 'Build your Skill Passport.' : 'Update your professional details.'}</h3>
+            <p>Profession, area, experience, and at least one skill are required. A short intro is optional.</p>
+
+            <div className="health-track large">
+              <i style={{ width: `${completeness}%` }} />
+            </div>
+            <strong className="completeness-value">{completeness}% complete</strong>
+
+            <div className="completeness-list">
+              <span><Icon name={categorySlug ? 'checkCircle' : 'clock'} size={15} />Profession/category</span>
+              <span><Icon name={area.trim() ? 'checkCircle' : 'clock'} size={15} />Service area</span>
+              <span><Icon name={experienceValid ? 'checkCircle' : 'clock'} size={15} />Experience</span>
+              <span><Icon name={skills.length ? 'checkCircle' : 'clock'} size={15} />At least one skill</span>
+            </div>
+
+            <form onSubmit={handleSave} style={{ display: 'grid', gap: 10 }}>
+              <div className="form-grid">
+                <label style={labelStyle}>
+                  Profession / service *
+                  <select
+                    value={categorySlug}
+                    onChange={event => setCategorySlug(event.target.value)}
+                    style={controlStyle}
+                    required
+                  >
+                    <option value="">Choose your profession</option>
+                    {categories.map(category => (
+                      <option key={category.id} value={category.id}>{category.name}</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label style={labelStyle}>
+                  Service area in Ajmer *
+                  <input
+                    value={area}
+                    onChange={event => setArea(event.target.value)}
+                    maxLength={80}
+                    placeholder="For example, Civil Lines"
+                    style={controlStyle}
+                    required
+                  />
+                </label>
+
+                <label style={labelStyle}>
+                  Experience in years * (enter 0 if new)
+                  <input
+                    type="number"
+                    min="0"
+                    step="1"
+                    value={experienceYears}
+                    onChange={event => setExperienceYears(event.target.value)}
+                    style={controlStyle}
+                    required
+                  />
+                </label>
+
+                <label style={labelStyle}>
+                  Skills, separated by commas *
+                  <input
+                    value={skillsText}
+                    onChange={event => setSkillsText(event.target.value)}
+                    placeholder="For example, wiring, fan installation"
+                    style={controlStyle}
+                    required
+                  />
+                </label>
+
+                <label style={labelStyle}>
+                  Languages, separated by commas (optional)
+                  <input
+                    value={languagesText}
+                    onChange={event => setLanguagesText(event.target.value)}
+                    placeholder="For example, Hindi, English"
+                    maxLength={255}
+                    style={controlStyle}
+                  />
+                </label>
+
+                <label style={{ ...labelStyle, gridColumn: '1 / -1' }}>
+                  Short introduction (optional)
+                  <textarea
+                    value={aboutText}
+                    onChange={event => setAboutText(event.target.value)}
+                    maxLength={1200}
+                    rows={3}
+                    style={{ ...controlStyle, resize: 'vertical' }}
+                  />
+                </label>
+              </div>
+
+              {error && <p className="form-error">{error}</p>}
+
+              <p className="chart-footnote">
+                Saving the required details publishes the profile. Platform review status is separate and is not government certification.
+              </p>
+
+              <Button type="submit" disabled={saving}>
+                {saving ? 'Saving…' : isDraft ? 'Save & publish profile' : 'Save profile changes'}
+              </Button>
+            </form>
+          </div>
+
+          {!isDraft && (
+            <div className="panel-card verification-card">
+              <div className="verification-card-head">
+                <Icon name="shieldCheck" size={19} />
+                <div><strong>Verification status</strong><span>{verificationText}</span></div>
+              </div>
+              <small>SkillLink status is a platform review, not a government or legal certification.</small>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function PerformancePage({ provider }) {
@@ -432,7 +833,7 @@ function AdminDashboard({ store, onNavigate, onVerify, onExport }) {
   const pending=store.providers.filter(p=>p.verification==='Under review');
   const completed=store.bookings.filter(b=>b.status==='Customer confirmed').length;
   const areaCounts=['Civil Lines','Vaishali Nagar','Panchsheel Nagar','Ana Sagar','Naya Bazaar','Madar Gate'].map(area=>({area,count:store.bookings.filter(b=>b.area===area).length}));
-  return <div className="page-stack admin-dashboard"><div className="admin-welcome"><div><div className="eyebrow">PLATFORM OVERVIEW · AJMER</div><h2>Good afternoon, Admin.</h2><p>Here’s how Ajmer SkillLink is connecting people today.</p></div><div className="admin-date"><span>DATA WINDOW</span><strong>Oct 01 – Oct 15, 2026</strong><button onClick={onExport}><Icon name="download" size={14}/>Export snapshot</button></div></div>
+  return <div className="page-stack admin-dashboard"><div className="admin-welcome"><div><div className="eyebrow">PLATFORM OVERVIEW · AJMER</div><h2>{getTimeBasedGreeting()}, Admin.</h2><p>Here’s how Ajmer SkillLink is connecting people today.</p></div><div className="admin-date"><span>DATA WINDOW</span><strong>Oct 01 – Oct 15, 2026</strong><button onClick={onExport}><Icon name="download" size={14}/>Export snapshot</button></div></div>
     <div className="admin-stat-grid"><StatCard icon="users" label="Total customers" value={store.customers.length} change="12%" tone="blue"/><StatCard icon="shieldCheck" label="Service providers" value={store.providers.length} change="8%" tone="violet"/><StatCard icon="clock" label="Pending verification" value={pending.length} foot="needs review" tone="amber"/><StatCard icon="calendar" label="Active bookings" value={active} change="6%" tone="teal"/><StatCard icon="flame" label="Emergency requests" value={emergency} foot="demo-mode matches" tone="rose"/><StatCard icon="message" label="Open complaints" value={store.complaints.filter(c=>c.status!=='Resolved').length} foot="support queue" tone="orange"/><StatCard icon="checkCircle" label="Completed demo jobs" value={completed} change="14%" tone="green"/><StatCard icon="star" label="Average rating" value="4.8 / 5" change="0.2" tone="gold"/></div>
     <div className="admin-content-grid"><div className="panel-card admin-chart-card"><div className="panel-heading"><div><div className="eyebrow">SERVICE DEMAND</div><h3>Most requested categories</h3></div><button className="text-button" onClick={()=>onNavigate('analytics')}>Full analytics <Icon name="arrow" size={14}/></button></div><div className="demand-list">{[['Electrical',83,'bolt'],['Plumbing',68,'droplet'],['Appliance repair',61,'fan'],['Home cleaning',54,'sparkles'],['Carpentry',42,'hammer']].map(([name,n,icon])=><div className="demand-row" key={name}><span className="demand-icon"><Icon name={icon} size={15}/></span><span className="demand-name">{name}</span><div className="demand-track"><i style={{width:`${n}%`}}/></div><strong>{n}</strong></div>)}</div><div className="chart-footnote">Illustrative demo demand · Oct 2026</div></div>
       <div className="panel-card area-card"><div className="eyebrow">AJMER AREAS</div><h3>Local activity</h3><p>Bookings by service neighbourhood</p><div className="area-ranking">{areaCounts.sort((a,b)=>b.count-a.count).slice(0,5).map((x,i)=><div className="area-ranking-row" key={x.area}><span className="area-rank">0{i+1}</span><span className="area-rank-pin"><Icon name="pin" size={14}/></span><strong>{x.area}</strong><span className="area-booking-count">{x.count} jobs</span></div>)}</div><button className="panel-footer-link" onClick={()=>onNavigate('analytics')}>View area analytics <Icon name="arrow" size={14}/></button></div></div>
@@ -507,6 +908,9 @@ function mapApiProvider(p,index=0){
   }catch{
     skills=[];
   }
+  const languages = Array.isArray(p.languages)
+     ? p.languages.map(language => String(language).trim()).filter(Boolean)
+      : String(p.languages || '').split(',').map(language => language.trim()).filter(Boolean);
 
   const local=seedProviders.find(x=>x.name===p.fullName)
     ||seedProviders.find(x=>x.category===p.category)
@@ -538,11 +942,12 @@ function mapApiProvider(p,index=0){
     availability:p.availableToday?'Available today':'Not available',
     online:Boolean(p.availableToday),
     onTime:Number(p.onTimeRate||0),
+    onTimeSampleCount:Number(p.onTimeSampleCount||0),
     cancellation:Number(p.cancellationRate||0),
     skills,
+    languages,
     about:p.aboutText||'',
     color:local.color||['blue','violet','teal','orange','rose','indigo'][index%6],
-    languages:[],
     portfolio:[],
     reviewText:''
   };
@@ -632,6 +1037,48 @@ function App() {
   };
   useEffect(()=>{const t=window.setTimeout(()=>setBooting(false),650);return()=>clearTimeout(t)},[]);
   useEffect(()=>{if(API_MODE)hydrateApiSession()},[]);
+    useEffect(()=>{
+    /* ASL_REALTIME_POLL_FORM_SAFE: sync only on real API changes; pause while a form is being used */
+    if(!API_MODE||screen!=='app'||!apiUser)return;
+    let stopped=false,busy=false,primed=false,signature='',bookingIds=[],notificationIds=[],formFocused=false,graceUntil=0;
+    const isFormControl=(el)=>{
+      if(!el)return false;
+      const tag=el.tagName||'';
+      return tag==='INPUT'||tag==='SELECT'||tag==='TEXTAREA'||el.isContentEditable===true||!!(el.closest&&el.closest('form'));
+    };
+    const markGrace=()=>{graceUntil=Date.now()+4000;};
+    const onFocusIn=(e)=>{if(isFormControl(e.target))formFocused=true;};
+    const onFocusOut=()=>{window.setTimeout(()=>{if(!isFormControl(document.activeElement))formFocused=false;},0);};
+    const poll=async()=>{
+      if(stopped||busy||document.hidden||!getApiAccess())return;
+      if(Date.now()<graceUntil||formFocused||isFormControl(document.activeElement))return;
+      busy=true;
+      try{
+        const [bookingRows,notificationRows]=await Promise.all([apiRequest('/bookings'),apiRequest('/notifications')]);
+        if(stopped)return;
+        const nextBookingIds=bookingRows.map(b=>String(b.id));
+        const nextNotificationIds=notificationRows.map(n=>String(n.id));
+        const nextSignature=JSON.stringify({bookings:bookingRows,notifications:notificationRows});
+        const changed=primed&&nextSignature!==signature;
+        const newBooking=primed&&nextBookingIds.some(id=>!bookingIds.includes(id));
+        const newNotification=primed&&nextNotificationIds.some(id=>!notificationIds.includes(id));
+        primed=true;bookingIds=nextBookingIds;notificationIds=nextNotificationIds;signature=nextSignature;
+        if(changed){
+          await loadApiWorkspace(role);
+          if((newBooking||newNotification)&&role!=='customer')setToast(newBooking?'New service request received.':'New booking notification received.');
+        }
+      }catch{}finally{busy=false}
+    };
+    poll();
+    const timer=window.setInterval(poll,1000);
+    const onVisible=()=>{if(!document.hidden)window.setTimeout(poll,400)};
+    document.addEventListener('visibilitychange',onVisible);
+    document.addEventListener('focusin',onFocusIn);
+    document.addEventListener('focusout',onFocusOut);
+    document.addEventListener('pointerdown',markGrace,true);
+    document.addEventListener('keydown',markGrace,true);
+    return()=>{stopped=true;window.clearInterval(timer);document.removeEventListener('visibilitychange',onVisible);document.removeEventListener('focusin',onFocusIn);document.removeEventListener('focusout',onFocusOut);document.removeEventListener('pointerdown',markGrace,true);document.removeEventListener('keydown',markGrace,true)};
+  },[screen,apiUser?.id,role]);
   useEffect(()=>{try{localStorage.setItem(STORE_KEY,JSON.stringify(store));localStorage.setItem('asl-demo-role',role)}catch{}},[store,role]);
   useEffect(()=>{if(!toast)return;const t=setTimeout(()=>setToast(''),3100);return()=>clearTimeout(t)},[toast]);
   useEffect(()=>{const fn=e=>setPage(e.detail);window.addEventListener('asl-navigate',fn);return()=>window.removeEventListener('asl-navigate',fn)},[]);
@@ -639,7 +1086,19 @@ function App() {
   const go=next=>{setPage(next);setMobileOpen(false);document.body.classList.remove('mobile-nav-open');if(next==='explore')setActiveCategory('All services');};
   const handleLogin=async(r,registering=false,credentials={})=>{
     if(API_MODE){
-      const payload=registering?{fullName:credentials.fullName,email:credentials.email,password:credentials.password,role:r.toUpperCase(),area:'Civil Lines'}:{email:credentials.email,password:credentials.password};
+      const payload = registering
+  ? {
+      fullName: credentials.fullName,
+      email: credentials.email,
+      password: credentials.password,
+      role: r.toUpperCase(),
+      area: 'Civil Lines',
+    }
+  : {
+      email: credentials.email,
+      password: credentials.password,
+      expectedRole: r.toUpperCase(),
+    };
       const auth=await apiRequest(registering?'/auth/register':'/auth/login',{method:'POST',body:payload,auth:false});
       saveApiTokens(auth.accessToken,auth.refreshToken);
       const mapped=mapApiUser(auth.user);setApiUser(mapped);try{localStorage.setItem('asl-api-user',JSON.stringify(mapped))}catch{}
@@ -694,7 +1153,7 @@ function App() {
     if(role==='customer'){
       if(page==='dashboard')return <CustomerDashboard providers={store.providers} customerName={user.name} bookings={store.bookings} savedIds={store.savedIds} onNavigate={go} query={query} setQuery={setQuery} onSelect={openProvider} onBook={p=>openBooking(p,p.category)} onCompare={toggleCompare} onSave={onSave} compareIds={compareIds} onCategory={c=>{setActiveCategory(c);go('explore')}} onEmergency={()=>go('emergency')}/>;
       if(page==='explore')return <ExplorePage providers={activeProviders} onSelect={openProvider} onBook={p=>openBooking(p,p.category)} onCompare={toggleCompare} compareIds={compareIds} savedIds={store.savedIds} onSave={onSave} query={query} setQuery={setQuery} filters={filters} setFilters={setFilters} activeCategory={activeCategory} setActiveCategory={setActiveCategory} onEmergency={()=>openBooking(null,activeCategory==='All services'?'Electrical':activeCategory,true)}/>;
-      if(page==='bookings')return <BookingsPage bookings={store.bookings.filter(b=>b.customer==='Rohan Mehta'||b.customer==='Priya Sharma')} providers={store.providers} role={role} onOpen={openBookingDetail} onStatus={(id,s)=>updateBooking(id,s)} onReview={b=>setModal({type:'review',booking:b})} onNavigate={go}/>;
+      if(page==='bookings')return <BookingsPage bookings={API_MODE ? store.bookings : store.bookings.filter(b => b.customer === 'Rohan Mehta' || b.customer === 'Priya Sharma')} providers={store.providers} role={role} onOpen={openBookingDetail} onStatus={(id,s)=>updateBooking(id,s)} onReview={b=>setModal({type:'review',booking:b})} onNavigate={go}/>;
       if(page==='saved')return <SavedPage providers={store.providers} savedIds={store.savedIds} onRemove={onSave} onSelect={openProvider} onBook={p=>openBooking(p,p.category)} onCompare={toggleCompare} compareIds={compareIds}/>;
       if(page==='notifications')return <NotificationsPage notifications={store.notifications} onMarkRead={markNotificationsRead} role={role}/>;
       if(page==='profile')return <SettingsPage role={role} user={user} onToast={notify}/>;
@@ -704,7 +1163,18 @@ function App() {
       if(page==='dashboard')return <ProviderDashboard provider={providerSelf} bookings={store.bookings} onNavigate={go} onStatus={updateBooking} onToggleAvailability={toggleProviderAvailability}/>;
       if(page==='requests')return <RequestsPage bookings={store.bookings} providers={store.providers} providerId={providerSelf.id} onStatus={updateBooking} onOpen={openBookingDetail}/>;
       if(page==='bookings')return <BookingsPage bookings={store.bookings.filter(b=>b.providerId===providerSelf.id)} providers={store.providers} role={role} onOpen={openBookingDetail} onStatus={updateBooking} onReview={()=>{}} onNavigate={go}/>;
-      if(page==='passport')return <ProviderPassportPage provider={providerSelf} onSave={()=>notify('Your Skill Passport changes were saved in this demo.')} onToggleAvailability={toggleProviderAvailability}/>;
+      if(page==='passport')return (
+  <ProviderPassportPage
+    provider={providerSelf}
+    onSave={async profile=>{
+      if(!API_MODE) throw new Error('Profile publishing requires API mode.');
+      await apiRequest('/providers/me/profile',{method:'PUT',body:profile});
+      await loadApiWorkspace('provider');
+      notify('Your Skill Passport was saved and is now visible to customers.');
+    }}
+    onToggleAvailability={toggleProviderAvailability}
+  />
+);
       if(page==='performance')return <PerformancePage provider={providerSelf}/>;
       if(page==='notifications')return <NotificationsPage notifications={store.notifications} onMarkRead={markNotificationsRead} role={role}/>;
       if(page==='profile')return <SettingsPage role={role} user={user} onToast={notify}/>;
@@ -732,7 +1202,7 @@ function App() {
     modal?.type==='confirm'?<ConfirmModal modal={modal} onClose={()=>setModal(null)}/>:
     modal?.type==='share'?<ShareModal summary={modal.summary} onClose={()=>setModal(null)} onCopy={()=>copySummary(modal.summary)}/> : null;
   return <div className={`app-shell ${mobileOpen?'menu-open':''}`}>
-    <Sidebar role={role} page={page} onNavigate={go} open={mobileOpen} onClose={()=>setMobileOpen(false)} onLogout={handleLogout}/>
+   <Sidebar role={role} page={page} onNavigate={go} open={mobileOpen} onClose={()=>setMobileOpen(false)} onLogout={handleLogout} unread={unread}/>
     <main className="main-panel"><Topbar role={role} page={page} user={user} onNavigate={go} query={query} setQuery={setQuery} onRoleChange={r=>{setRole(r);go('dashboard')}} onLogout={handleLogout} unread={unread} portalSwitchEnabled={!API_MODE}/><div className="page-content">{renderPage()}<footer className="app-footer"><span>© 2026 Nexoraa · Ajmer SkillLink</span><span>Trusted Local Services, One Click Away</span><button onClick={()=>notify('Privacy, safe booking and demo-data notes are in the README.')}>Privacy & demo-data notice</button></footer></div></main>
     {compareIds.length>0&&<div className="compare-dock"><div className="compare-dock-left"><span className="compare-dock-icon"><Icon name="chart" size={16}/></span><div><strong>{compareIds.length} pro{compareIds.length>1?'s':''} selected</strong><small>Compare trust, experience and estimates</small></div></div><div className="compare-dock-people">{currentProvidersForCompare.map(p=><span key={p.id} title={p.name}><Avatar initials={p.initials} tone={p.color} small/></span>)}</div><button className="compare-dock-link" disabled={compareIds.length<2} onClick={()=>setModal({type:'compare'})}>Compare now <Icon name="arrow" size={14}/></button><button className="compare-clear" onClick={()=>setCompareIds([])} aria-label="Clear comparison"><Icon name="x" size={15}/></button></div>}
     {modalNode}<Toast message={toast} onClose={()=>setToast('')}/>
@@ -744,3 +1214,7 @@ function createSeedStore(){
 }
 
 export default App;
+
+/* ASL_UI_POLISH_MARKER */
+
+/* ASL_FORM_SAFE_MARKER */

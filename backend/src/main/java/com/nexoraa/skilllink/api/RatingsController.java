@@ -2,7 +2,10 @@ package com.nexoraa.skilllink.api;
 
 import com.nexoraa.skilllink.domain.*;
 import com.nexoraa.skilllink.repository.RatingsReviewRepository;
+import com.nexoraa.skilllink.repository.NotificationRepository;
+import com.nexoraa.skilllink.repository.ProviderProfileRepository;
 import com.nexoraa.skilllink.service.BookingService;
+import com.nexoraa.skilllink.service.ProviderMetricsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,11 +16,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
+
 @RestController
 @RequiredArgsConstructor
 public class RatingsController {
     private final RatingsReviewRepository reviews;
     private final BookingService bookings;
+    private final ProviderProfileRepository providerProfiles;
+    private final NotificationRepository notifications;
+    private final ProviderMetricsService providerMetricsService;
 
     @PostMapping("/api/ratings")
     @ResponseStatus(HttpStatus.CREATED)
@@ -31,6 +38,29 @@ public class RatingsController {
         if (reviews.existsByBooking_Id(booking.getId())) throw new ResponseStatusException(HttpStatus.CONFLICT, "A review has already been submitted for this booking.");
         RatingsReview saved = reviews.save(RatingsReview.builder().booking(booking).customer(actor).provider(booking.getProvider())
                 .rating(req.rating()).reviewText(req.reviewText() == null ? null : req.reviewText().trim()).build());
+                ProviderProfile profile = providerProfiles.findById(booking.getProvider().getId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Provider profile was not found."));
+
+        List<RatingsReview> providerReviews =
+                reviews.findAllByProvider_IdOrderByCreatedAtDesc(booking.getProvider().getId());
+        double averageRating = providerReviews.stream()
+                .mapToInt(RatingsReview::getRating)
+                .average()
+                .orElse(0.0);
+
+        profile.setRatingAverage(Math.round(averageRating * 100.0) / 100.0);
+        providerProfiles.save(profile);
+        providerMetricsService.recalculateForProvider(booking.getProvider().getId());
+
+        notifications.save(NotificationEntity.builder()
+                .user(booking.getProvider())
+                .title("New customer review")
+                .body(actor.getFullName() + " left a " + saved.getRating()
+                        + "-star review for booking " + booking.getBookingCode() + ".")
+                .kind("review")
+                .build());
+
         return view(saved);
     }
 

@@ -13,6 +13,7 @@ frontend/.vite/
 .env.*.local
 frontend/.env
 frontend/.env.local
+frontend/.env.*.local
 backend/.env
 
 # IDE / OS
@@ -21,7 +22,21 @@ backend/.env
 .DS_Store
 Thumbs.db
 *.log
-# Local branding update bundle; not part of the app source
-ajmer-skilllink-branding-update/
-# Local debug log
-backend/error-log.txt
+
+# Submission artifacts, backups and media
+*.bak
+*.zip
+*.mp4
+submission-artifacts/
+docs/screenshots/*.tmp
+
+# Local submission helper folders and backups (do not commit)
+submission-prep/
+submission-prep-backups/
+All-files-need-in-submission/
+ajmer-skilllink-complete/
+ajmer-skilllink-data-only/
+*.bak
+*.zip
+*.mp4
+submission-artifacts/

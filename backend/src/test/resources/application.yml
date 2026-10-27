@@ -12,7 +12,8 @@ spring:
     enabled: false
 app:
   jwt:
-    secret-base64: c2tpbGxsaW5rLWRldi1zZWNyZXQtMzItYnl0ZXMtZm9yLWhzMjU2LWtleS1vbmU=
+    # Test-only deterministic key. It is not used by any running deployment.
+    secret-base64: QVNMX1RFU1RfT05MWV9LRVlfMDAwMDAwMDAwMDAwMDA=
     access-minutes: 20
     refresh-days: 30
   cors:

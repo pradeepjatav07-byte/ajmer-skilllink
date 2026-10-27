@@ -7,6 +7,7 @@ import com.nexoraa.skilllink.domain.ServiceCategory;
 import com.nexoraa.skilllink.domain.UserEntity;
 import com.nexoraa.skilllink.repository.ProviderProfileRepository;
 import com.nexoraa.skilllink.repository.ServiceCategoryRepository;
+import com.nexoraa.skilllink.service.ProviderMetricsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,7 @@ public class ProviderProfileController {
     private final ProviderProfileRepository providers;
     private final ServiceCategoryRepository categories;
     private final ObjectMapper objectMapper;
+    private final ProviderMetricsService providerMetricsService;
 
     @GetMapping
     @PreAuthorize("hasRole('PROVIDER')")
@@ -65,11 +67,16 @@ public class ProviderProfileController {
             throw new IllegalStateException("Could not save professional skills.", ex);
         }
 
-        String aboutText = request.aboutText();
+       String aboutText = request.aboutText();
         profile.setAboutText(aboutText == null || aboutText.isBlank()
                 ? null : aboutText.trim());
 
+        String languages = request.languages();
+        profile.setLanguages(languages == null || languages.isBlank()
+                ? null : languages.trim());
+
         profile.setActive(true);
+        providerMetricsService.recalculateForProvider(actor.getId());
         return ApiDtos.ProviderView.from(profile);
     }
 

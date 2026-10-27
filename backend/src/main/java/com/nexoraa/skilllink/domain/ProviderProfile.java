@@ -19,11 +19,13 @@ public class ProviderProfile {
     @Column(name = "experience_years", nullable = false) private int experienceYears;
     @Column(name = "skills_json", columnDefinition = "json") private String skillsJson;
     @Column(name = "about_text", length = 1200) private String aboutText;
+    @Column(name = "languages", length = 255) private String languages;
     @Column(name = "verification_status", nullable = false, length = 24) @Builder.Default private String verificationStatus = "UNDER_REVIEW";
     @Column(name = "rating_average", nullable = false) @Builder.Default private double ratingAverage = 0.0;
     @Column(name = "completed_jobs", nullable = false) @Builder.Default private int completedJobs = 0;
     @Column(name = "trust_score", nullable = false) @Builder.Default private int trustScore = 50;
     @Column(name = "on_time_rate", nullable = false) @Builder.Default private double onTimeRate = 0.0;
+    @Column(name = "on_time_sample_count", nullable = false) @Builder.Default private int onTimeSampleCount = 0;
     @Column(name = "cancellation_rate", nullable = false) @Builder.Default private double cancellationRate = 0.0;
     @Column(name = "emergency_available", nullable = false) @Builder.Default private boolean emergencyAvailable = false;
     @Column(name = "female_professional", nullable = false) @Builder.Default private boolean femaleProfessional = false;

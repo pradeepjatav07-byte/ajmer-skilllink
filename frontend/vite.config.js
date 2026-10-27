@@ -10,7 +10,15 @@ export default defineConfig(({ mode }) => {
       allowedHosts: true,
       port: 5173,
       proxy: {
-        '/api': { target: env.API_PROXY_TARGET || 'http://localhost:8080', changeOrigin: true },
+        '/api': {
+  target: env.API_PROXY_TARGET || 'http://localhost:8080',
+  changeOrigin: true,
+  configure: (proxy) => {
+    proxy.on('proxyReq', (proxyReq) => {
+      proxyReq.removeHeader('origin');
+    });
+  },
+},
         '/swagger-ui': { target: env.API_PROXY_TARGET || 'http://localhost:8080', changeOrigin: true },
         '/v3/api-docs': { target: env.API_PROXY_TARGET || 'http://localhost:8080', changeOrigin: true }
       }

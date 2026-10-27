@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
+
 @Service
 @RequiredArgsConstructor
 public class BookingService {
@@ -21,6 +22,8 @@ public class BookingService {
     private final ProviderProfileRepository providerProfiles;
     private final ServiceCategoryRepository categories;
     private final FairQuoteService fairQuoteService;
+    private final NotificationRepository notifications;
+    private final ProviderMetricsService providerMetricsService;
 
     @Transactional
     public ApiDtos.BookingView create(ApiDtos.BookingCreateRequest req, UserEntity customer) {
@@ -57,7 +60,39 @@ public class BookingService {
                 .daytimePreferred(!Boolean.FALSE.equals(req.daytimePreferred()))
                 .femaleProfessionalPreferred(Boolean.TRUE.equals(req.femaleProfessionalPreferred()))
                 .shareWithContact(Boolean.TRUE.equals(req.shareWithContact())).trustedContactName(req.trustedContactName()).build());
-        history.save(BookingStatusHistory.builder().booking(booking).changedBy(customer).status(BookingStatus.REQUESTED).note("Customer request submitted").build());
+               history.save(BookingStatusHistory.builder()
+                .booking(booking)
+                .changedBy(customer)
+                .status(BookingStatus.REQUESTED)
+                .note("Customer request submitted")
+                .build());
+
+        if (providerUser != null) {
+            notifications.save(NotificationEntity.builder()
+                    .user(providerUser)
+                    .title("New booking request")
+                    .body(customer.getFullName() + " requested "
+                            + booking.getServiceTitle() + " in "
+                            + booking.getAreaName() + ".")
+                    .kind("booking")
+                    .build());
+        }
+
+        String confirmationBody = providerUser == null
+                ? "Your " + booking.getServiceTitle()
+                        + " request was added to the Ajmer matching queue in "
+                        + booking.getAreaName() + "."
+                : "Your " + booking.getServiceTitle()
+                        + " request was sent to " + providerUser.getFullName()
+                        + " in " + booking.getAreaName() + ".";
+
+        notifications.save(NotificationEntity.builder()
+                .user(customer)
+                .title("Booking request sent")
+                .body(confirmationBody)
+                .kind("booking")
+                .build());
+
         return ApiDtos.BookingView.from(booking);
     }
 
@@ -98,10 +133,70 @@ public class BookingService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Confirm work only after the provider marks it complete.");
         if (customer && next == BookingStatus.DISPUTED && !Set.of(BookingStatus.WORK_STARTED, BookingStatus.WORK_COMPLETED).contains(booking.getStatus()))
             throw new ResponseStatusException(HttpStatus.CONFLICT, "A concern can be raised after work has started.");
-        booking.setStatus(next);
-        bookings.save(booking);
-        history.save(BookingStatusHistory.builder().booking(booking).changedBy(actor).status(next).note(note == null ? null : note.trim()).build());
-        return ApiDtos.BookingView.from(booking);
+       booking.setStatus(next);
+bookings.save(booking);
+history.save(BookingStatusHistory.builder()
+        .booking(booking)
+        .changedBy(actor)
+        .status(next)
+        .note(note == null ? null : note.trim())
+        .build());
+                UserEntity notificationRecipient = null;
+        if (provider) {
+            notificationRecipient = booking.getCustomer();
+        } else if (customer && booking.getProvider() != null) {
+            notificationRecipient = booking.getProvider();
+        }
+
+        if (notificationRecipient != null) {
+            String notificationTitle = switch (next) {
+                case ACCEPTED -> "Booking accepted";
+                case PROVIDER_ON_THE_WAY -> "Your provider is on the way";
+                case WORK_STARTED -> "Work started";
+                case WORK_COMPLETED -> "Work completed";
+                case CUSTOMER_CONFIRMED -> "Work confirmed";
+                case CANCELLED -> "Booking cancelled";
+                case DISPUTED -> "Booking concern raised";
+                default -> "Booking status updated";
+            };
+
+            String notificationBody = switch (next) {
+                case ACCEPTED -> booking.getProvider().getFullName()
+                        + " accepted your " + booking.getServiceTitle()
+                        + " request in " + booking.getAreaName() + ".";
+                case PROVIDER_ON_THE_WAY -> booking.getProvider().getFullName()
+                        + " is heading to your home for " + booking.getServiceTitle()
+                        + " in " + booking.getAreaName() + ".";
+                case WORK_STARTED -> "Work on your " + booking.getServiceTitle()
+                        + " booking in " + booking.getAreaName() + " has started.";
+                case WORK_COMPLETED -> "Work on your " + booking.getServiceTitle()
+                        + " booking in " + booking.getAreaName()
+                        + " is marked complete. Please confirm when ready.";
+                case CUSTOMER_CONFIRMED -> booking.getCustomer().getFullName()
+                        + " confirmed the completed " + booking.getServiceTitle()
+                        + " work in " + booking.getAreaName() + ".";
+                case CANCELLED -> "The " + booking.getServiceTitle()
+                        + " booking in " + booking.getAreaName() + " was cancelled.";
+                case DISPUTED -> "A concern was raised about the " + booking.getServiceTitle()
+                        + " booking in " + booking.getAreaName() + ".";
+                default -> "The status of your " + booking.getServiceTitle()
+                        + " booking changed.";
+            };
+
+            notifications.save(NotificationEntity.builder()
+                    .user(notificationRecipient)
+                    .title(notificationTitle)
+                    .body(notificationBody)
+                    .kind("booking")
+                    .build());
+        }
+
+        if (booking.getProvider() != null) {
+            providerMetricsService.recalculateForProvider(booking.getProvider().getId());
+        }
+
+
+return ApiDtos.BookingView.from(booking);
     }
 
     private static class SetMembership {

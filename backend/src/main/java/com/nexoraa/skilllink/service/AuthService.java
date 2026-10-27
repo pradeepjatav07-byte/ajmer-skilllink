@@ -64,6 +64,14 @@ public class AuthService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email().trim().toLowerCase(), request.password()));
         UserEntity user = users.findByEmailIgnoreCase(request.email()).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password."));
         if (!user.isEnabled() || !user.isAccountNonLocked()) throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is not active.");
+        String expectedRole = request.expectedRole();
+if (expectedRole != null && !expectedRole.isBlank()
+        && !expectedRole.trim().equalsIgnoreCase(user.getRole().name())) {
+    throw new ResponseStatusException(
+            HttpStatus.FORBIDDEN,
+            "This account type does not match the selected login tab. Please select the correct tab."
+    );
+}
         refreshTokens.deleteAllByUser_Id(user.getId());
         return issuePair(user);
     }

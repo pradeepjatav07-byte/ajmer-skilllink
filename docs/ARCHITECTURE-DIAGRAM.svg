@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs><style>.t{font-family:Arial,sans-serif;fill:#f8fbff}.s{font-family:Arial,sans-serif;fill:#a8b7d3;font-size:20px}.b{font-family:Arial,sans-serif;fill:#fff;font-size:24px;font-weight:bold}.l{font-family:Arial,sans-serif;fill:#e5edff;font-size:16px}.n{font-family:Arial,sans-serif;fill:#cfe0ff;font-size:16px} .box{stroke:#5d7bb5;stroke-width:2;rx:18} .arrow{stroke:#62d6d0;stroke-width:5;marker-end:url(#a)}</style><marker id="a" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#62d6d0"/></marker></defs>
+<rect width="1600" height="900" fill="#0b1220"/>
+<text x="60" y="80" class="t" font-size="42" font-weight="bold">Ajmer SkillLink — One-page Architecture</text>
+<text x="60" y="120" class="s">Identity 2026 · BCA2 · Pradeep Jatav &amp; MoneyRaj Singh · Browser → JavaScript → API → Java → Database</text>
+<rect x="40" y="150" width="1520" height="670" rx="28" fill="#101c33" stroke="#23385f" stroke-width="2"/>
+<rect x="60" y="240" width="220" height="380" class="box" fill="#1b3a6b"/>
+<text x="78" y="278" class="b">BROWSER</text>
+<text x="78" y="330" class="l">• HTML / CSS / JS</text>
+<text x="78" y="364" class="l">• Responsive UI</text>
+<text x="78" y="398" class="l">• Form validation</text>
+<rect x="390" y="240" width="220" height="380" class="box" fill="#3b2d78"/>
+<text x="408" y="278" class="b">JAVASCRIPT</text>
+<text x="408" y="330" class="l">• React 18 + Vite</text>
+<text x="408" y="364" class="l">• fetch() async/await</text>
+<text x="408" y="398" class="l">• Loading / error / toasts</text>
+<rect x="720" y="240" width="220" height="380" class="box" fill="#144e5a"/>
+<text x="738" y="278" class="b">REST API</text>
+<text x="738" y="330" class="l">• /api controllers</text>
+<text x="738" y="364" class="l">• DTO validation</text>
+<text x="738" y="398" class="l">• JWT + refresh tokens</text>
+<rect x="1050" y="240" width="220" height="380" class="box" fill="#5a3a1c"/>
+<text x="1068" y="278" class="b">JAVA</text>
+<text x="1068" y="330" class="l">• Spring Boot 3</text>
+<text x="1068" y="364" class="l">• Services + workflow</text>
+<text x="1068" y="398" class="l">• JPA repositories</text>
+<rect x="1320" y="240" width="220" height="380" class="box" fill="#1e5540"/>
+<text x="1338" y="278" class="b">DATABASE</text>
+<text x="1338" y="330" class="l">• MySQL 8</text>
+<text x="1338" y="364" class="l">• Flyway migrations</text>
+<text x="1338" y="398" class="l">• Fictional seed data</text>
+<line x1="284" y1="430" x2="382" y2="430" class="arrow"/>
+<line x1="614" y1="430" x2="712" y2="430" class="arrow"/>
+<line x1="944" y1="430" x2="1042" y2="430" class="arrow"/>
+<line x1="1274" y1="430" x2="1372" y2="430" class="arrow"/>
+<rect x="80" y="685" width="1440" height="105" rx="14" fill="#0f2038" stroke="#2b4a78" stroke-width="2"/>
+<text x="100" y="715" class="n">• Smart features: search/filter, FairQuote, booking timeline, one-second notification polling, admin charts.</text>
+<text x="100" y="743" class="n">• Security: BCrypt hashes, JWT access tokens, rotating refresh-token hashes, role checks, global error responses.</text>
+<text x="100" y="771" class="n">• Tests: H2 in-memory test profile with Flyway disabled; MySQL + Flyway used for normal local persistence.</text>
+</svg>
